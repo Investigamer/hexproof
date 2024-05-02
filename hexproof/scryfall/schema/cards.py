@@ -3,17 +3,24 @@
 * Types: Card Objects
 """
 # Standard Library Imports
-from typing import Literal
+from typing import Literal, Optional
 
 # Third Party Imports
-from typing_extensions import NotRequired
-from omnitils.schema import DictSchema
+from omnitils.schema import Schema
 
+
+"""
+* Types
+"""
 
 CardLegality: type = Literal['banned', 'legal', 'not_legal', 'restricted']
 
+"""
+* Schemas
+"""
 
-class CardLegalities(DictSchema):
+
+class CardLegalities(Schema):
     """An object denoting a card's legal, banned, or restricted status for various formats."""
     standard: CardLegality
     future: CardLegality
@@ -39,7 +46,7 @@ class CardLegalities(DictSchema):
     predh: CardLegality
 
 
-class CardRelated(DictSchema):
+class CardRelated(Schema):
     """Represents a symbolic card related to another card."""
     id: str
     object: Literal['related_card']
@@ -49,7 +56,7 @@ class CardRelated(DictSchema):
     uri: str
 
 
-class Card(DictSchema):
+class Card(Schema):
     """Represents a card object on Scryfall.
 
     Notes:
@@ -67,14 +74,14 @@ class Card(DictSchema):
     scryfall_uri: str
 
     """Core Fields (OPTIONAL): Core properties that might not be defined."""
-    arena_id: NotRequired[int]
-    mtgo_id: NotRequired[int]
-    mtgo_foil_id: NotRequired[int]
-    multiverse_ids: NotRequired[list[int]]
-    tcgplayer_id: NotRequired[int]
-    tcgplayer_etched_id: NotRequired[int]
-    cardmarket_id: NotRequired[int]
-    oracle_id: NotRequired[int]
+    arena_id: Optional[int]
+    mtgo_id: Optional[int]
+    mtgo_foil_id: Optional[int]
+    multiverse_ids: Optional[list[int]]
+    tcgplayer_id: Optional[int]
+    tcgplayer_etched_id: Optional[int]
+    cardmarket_id: Optional[int]
+    oracle_id: Optional[int]
 
     """Gameplay Fields (REQUIRED): Properties relevant to the game rules that must be defined."""
     cmc: float
@@ -87,7 +94,7 @@ class Card(DictSchema):
 
     """Gameplay Fields (OPTIONAL): Properties relevant to the game rules that might not be defined."""
     # Todo
-    all_parts: NotRequired[list[CardRelated]]
+    all_parts: Optional[list[CardRelated]]
 
     """Print Fields (REQUIRED): Properties unique to a specific card printing that must be defined."""
     # Todo

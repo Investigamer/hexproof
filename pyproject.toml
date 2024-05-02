@@ -13,7 +13,8 @@ pydantic = "^2.6.4"
 PyYAML = "^6.0.1"
 tomlkit = "^0.12.4"
 tomli = "^2.0.1"
-omnitils = {git = "https://github.com/Investigamer/omnitils.git"}
+loguru = "^0.7.2"
+omnitils = {git = "https://github.com/Investigamer/omnitils.git", tag = "1.1.0"}
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.9.0"
