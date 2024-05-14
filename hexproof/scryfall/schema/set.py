@@ -44,24 +44,24 @@ SetTypes = Union[
 
 class Set(Schema):
     """Scryfall 'Set' object representing a group of related Magic cards."""
-    arena_code: Optional[str]
-    block: Optional[str]
-    block_code: Optional[str]
+    arena_code: Optional[str] = None
+    block: Optional[str] = None
+    block_code: Optional[str] = None
     card_count: int
     code: str
-    digital: bool
-    foil_only: bool
+    digital: bool = False
+    foil_only: bool = False
     icon_svg_uri: str
     id: str
-    mtgo_code: Optional[str]
+    mtgo_code: Optional[str] = None
     name: str
-    nonfoil_only: bool
+    nonfoil_only: bool = False
     object: Literal['set']
-    parent_set_code: Optional[str]
-    printed_size: Optional[int]
-    released_at: Optional[str]
+    parent_set_code: Optional[str] = None
+    printed_size: Optional[int] = None
+    released_at: Optional[str] = None
     scryfall_uri: str
     search_uri: str
     set_type: SetTypes
-    tcgplayer_id: Optional[int]
+    tcgplayer_id: Optional[int] = None
     uri: str

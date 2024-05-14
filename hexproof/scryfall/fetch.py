@@ -2,11 +2,12 @@
 * Scryfall Request Handling
 """
 # Third Party Imports
+from pathlib import Path
 from typing import Callable, Optional
 
 # Third Party Imports
 import requests
-from omnitils.fetch import request_header_default
+from omnitils.fetch import request_header_default, download_file
 from ratelimit import sleep_and_retry, RateLimitDecorator
 from backoff import on_exception, expo
 from requests import RequestException
@@ -48,12 +49,12 @@ def request_handler_scryfall(func) -> Callable:
 
 
 """
-* Request Funcs
+* Requesting JSON Assets
 """
 
 
 @request_handler_scryfall
-def get_set(set_code: str, header: Optional[dict] = None) -> Set:
+def get_data_set(set_code: str, header: Optional[dict] = None) -> Set:
     """Grabs a 'Set' object from Scryfall's `/set/{code}` endpoint.
 
     Args:
@@ -72,7 +73,7 @@ def get_set(set_code: str, header: Optional[dict] = None) -> Set:
 
 
 @request_handler_scryfall
-def get_set_list(header: Optional[dict] = None) -> list[Set]:
+def get_data_set_list(header: Optional[dict] = None) -> list[Set]:
     """Grab a list of all Scryfall 'Set' objects from their `/sets/` endpoint.
 
     Args:
@@ -86,3 +87,21 @@ def get_set_list(header: Optional[dict] = None) -> list[Set]:
     with requests.get(url=ScryURL.API_SETS, headers=header) as r:
         r.raise_for_status()
         return r.json().get('data', [])
+
+
+"""
+* Downloading JSON Assets
+"""
+
+
+@request_handler_scryfall
+def get_set_list(path: Path) -> Path:
+    """Stream the current Scryfall 'Sets' resource and save it to a file.
+
+    Args:
+        path: Path object where the JSON data will be saved.
+    """
+    download_file(
+        url=ScryURL.API_SETS,
+        path=path)
+    return path
