@@ -65,7 +65,7 @@ def request_handler_mtgjson_gql(func) -> Callable:
 def get_data_meta() -> MTGJsonTypes.Meta:
     """Get the current MTGJSON 'Meta' resource."""
     with requests.get(
-        url=MTGJsonURL.API_META,
+        url=MTGJsonURL.BulkJSON.Meta,
         headers=request_header_default.copy()
     ) as res:
         res.raise_for_status()
@@ -96,7 +96,7 @@ def get_data_set(card_set: str) -> MTGJsonTypes.Set:
 def get_data_set_list() -> list[MTGJsonTypes.SetList]:
     """Get the current MTGJSON 'SetList' resource."""
     with requests.get(
-        url=MTGJsonURL.API_SET_LIST,
+        url=MTGJsonURL.BulkJSON.SetList,
         headers=request_header_default.copy().copy()
     ) as res:
         res.raise_for_status()
@@ -117,7 +117,7 @@ def get_meta(path: Path) -> Path:
         path: Path object where the JSON data will be saved.
     """
     download_file(
-        url=MTGJsonURL.API_META,
+        url=MTGJsonURL.BulkJSON.Meta,
         path=path)
     return path
 
@@ -131,7 +131,7 @@ def get_set(card_set: str, path: Path) -> Path:
         path: Path object where the JSON data will be saved.
     """
     download_file(
-        url=(MTGJsonURL.API / card_set.upper()).with_suffix('.json'),
+        url=(MTGJsonURL.Sets / card_set.upper()).with_suffix('.json'),
         path=path)
     return path
 
@@ -144,7 +144,7 @@ def get_set_list(path: Path) -> Path:
         path: Path object where the JSON data will be saved.
     """
     download_file(
-        url=MTGJsonURL.API_SET_LIST,
+        url=MTGJsonURL.BulkJSON.SetList,
         path=path)
     return path
 
@@ -161,7 +161,7 @@ def get_sets_all(path: Path) -> Path:
     """
     archive = path / 'AllSetFiles.tar.gz'
     download_file(
-        url=MTGJsonURL.API_SET_ALL,
+        url=MTGJsonURL.BulkZip.AllSetFiles,
         path=archive)
 
     # Unpack the contents
