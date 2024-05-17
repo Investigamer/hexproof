@@ -15,7 +15,7 @@ from requests import RequestException
 import yarl
 
 # Local Imports
-from hexproof.vectors.enums import URL
+from hexproof.vectors.enums import VectorURL
 
 """
 * Request Funcs
@@ -23,7 +23,7 @@ from hexproof.vectors.enums import URL
 
 
 def get_vectors_manifest(
-    directory: Path,
+    path: Path,
     url: Union[yarl.URL, str, None] = None,
     header: Optional[dict] = None,
     auth_token: Optional[str] = None
@@ -31,7 +31,7 @@ def get_vectors_manifest(
     """Gets the current mtg-vectors symbol manifest.
 
     Args:
-        directory: Directory to save manifest file.
+        path: Path to save the manifest file.
         url: URL to fetch manifest from, uses official `mtg-vectors` repository if not provided.
         header: Header object to pass with request, uses default if not provided.
         auth_token: Optional auth token to pass with request, increases rate limits.
@@ -39,13 +39,9 @@ def get_vectors_manifest(
     Returns:
         Path to the manifest file.
     """
-    url = url or URL.MANIFEST
-    if not directory.is_dir():
-        mkdir_full_perms(directory)
-    path = directory / 'manifest.json'
     try:
         data = gh_get_data_json(
-            url=url,
+            url=url or VectorURL.Manifest,
             header=header,
             auth_token=auth_token)
         dump_data_file(data, path)
@@ -79,7 +75,7 @@ def get_vectors_package(
     """
 
     # Get zip
-    url = url or URL.PACKAGE
+    url = url or VectorURL.Package
     if not directory.is_dir():
         mkdir_full_perms(directory)
     path = directory / 'package.zip'
@@ -110,7 +106,7 @@ def get_vectors_package(
 
 
 def update_vectors_manifest(
-    directory: Path,
+    path: Path,
     current: str,
     url: Union[yarl.URL, str, None] = None,
     force: bool = False
@@ -118,7 +114,7 @@ def update_vectors_manifest(
     """Update the mtg-vectors manifest.
 
     Args:
-        directory: Directory to save manifest file to.
+        path: Path to save the manifest file.
         current: Current version of vector manifest.
         url: URL to fetch manifest from.
         force: Whether to update even if metadata is already up-to-date, False by default.
@@ -128,7 +124,7 @@ def update_vectors_manifest(
     """
 
     # Request the updated manifest
-    manifest = get_vectors_manifest(directory=directory, url=url)
+    manifest = get_vectors_manifest(path=path, url=url)
     if not manifest:
         return
 
