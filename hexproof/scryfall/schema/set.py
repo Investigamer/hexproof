@@ -1,11 +1,14 @@
 """
-* Scryfall Data Types
+* Scryfall Schema: Set
+* https://scryfall.com/docs/api/sets
 """
 # Standard Library Imports
 from typing import Literal, Union, Optional
 
 # Third Party Imports
 from omnitils.schema import Schema
+
+from hexproof.scryfall.schema.list_object import ListObject
 
 """
 * Types
@@ -44,6 +47,7 @@ SetTypes = Union[
 
 class Set(Schema):
     """Scryfall 'Set' object representing a group of related Magic cards."""
+    object: Literal['set'] = 'set'
     arena_code: Optional[str] = None
     block: Optional[str] = None
     block_code: Optional[str] = None
@@ -56,7 +60,6 @@ class Set(Schema):
     mtgo_code: Optional[str] = None
     name: str
     nonfoil_only: bool = False
-    object: Literal['set']
     parent_set_code: Optional[str] = None
     printed_size: Optional[int] = None
     released_at: Optional[str] = None
@@ -65,3 +68,13 @@ class Set(Schema):
     set_type: SetTypes
     tcgplayer_id: Optional[int] = None
     uri: str
+
+
+class SetList(ListObject):
+    """Represents a sequence of Set objects.
+
+    Notes:
+        Subset of the 'List' Scryfall object.
+        See docs: https://scryfall.com/docs/api/lists
+    """
+    data: list[Set]

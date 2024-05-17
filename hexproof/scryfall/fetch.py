@@ -64,7 +64,7 @@ def get_data_set(set_code: str, header: Optional[dict] = None) -> Set:
     Returns:
         A Scryfall 'Set' object.
     """
-    url = ScryURL.API_SETS / set_code.lower()
+    url = ScryURL.API.Sets.All / set_code.lower()
     if header is None:
         header = request_header_default.copy()
     with requests.get(url, headers=header) as r:
@@ -84,7 +84,7 @@ def get_data_set_list(header: Optional[dict] = None) -> list[Set]:
     """
     if header is None:
         header = request_header_default.copy()
-    with requests.get(url=ScryURL.API_SETS, headers=header) as r:
+    with requests.get(url=ScryURL.API.Sets.All, headers=header) as r:
         r.raise_for_status()
         return r.json().get('data', [])
 
@@ -102,6 +102,6 @@ def get_set_list(path: Path) -> Path:
         path: Path object where the JSON data will be saved.
     """
     download_file(
-        url=ScryURL.API_SETS,
+        url=ScryURL.API.Sets.All,
         path=path)
     return path
