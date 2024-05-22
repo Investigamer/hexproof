@@ -6,6 +6,9 @@ authors = ["Investigamer <freethoughtleft@gmail.com>"]
 license = "MPL-2.0"
 readme = "README.md"
 
+[[tool.poetry.packages]]
+include = "hexproof"
+
 [tool.poetry.dependencies]
 python = ">=3.10,<3.13"
 requests = "^2.31.0"
@@ -14,7 +17,7 @@ PyYAML = "^6.0.1"
 tomlkit = "^0.12.4"
 tomli = "^2.0.1"
 loguru = "^0.7.2"
-omnitils = {git = "https://github.com/Investigamer/omnitils.git", tag = "1.1.5"}
+omnitils = {git = "https://github.com/Investigamer/omnitils.git", tag = "1.2.0"}
 bs4 = "^0.0.2"
 
 [tool.poetry.group.dev.dependencies]
@@ -33,3 +36,6 @@ update_changelog_on_bump = true
 version_files = [
     "pyproject.toml:version"
 ]
+
+[tool.poetry.scripts]
+hexproof = 'hexproof._cli:HexproofCLI'
