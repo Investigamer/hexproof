@@ -8,7 +8,7 @@ from dataclasses import dataclass
 import yarl
 
 # Constants
-__MTGJSON_SITE__ = yarl.URL('https://scryfall.com')
+__MTGJSON_SITE__ = yarl.URL('https://mtgjson.com')
 __MTGJSON_API__ = __MTGJSON_SITE__ / 'api' / 'v5'
 
 """
