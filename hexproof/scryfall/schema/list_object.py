@@ -16,4 +16,4 @@ class ListObject(Schema):
     data: list[dict | Schema]
     has_more: bool
     next_page: Optional[str] = None
-    warnings: list[str]
+    warnings: Optional[list[str]] = None

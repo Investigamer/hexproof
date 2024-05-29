@@ -41,8 +41,9 @@ class ScryURL:
         @dataclass
         class Cards:
             """Scryfall API 'Card' object endpoints."""
-            All = __SCRY_API__ / 'cards'
-            Search = All / 'search'
+            Main = __SCRY_API__ / 'cards'
+            Named = Main / 'named'
+            Search = Main / 'search'
 
         @dataclass
         class Catalogs:

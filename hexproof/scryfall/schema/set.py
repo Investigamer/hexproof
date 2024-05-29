@@ -3,42 +3,14 @@
 * https://scryfall.com/docs/api/sets
 """
 # Standard Library Imports
-from typing import Literal, Union, Optional
+from typing import Literal, Optional
 
 # Third Party Imports
 from omnitils.schema import Schema
 
+# Local Imports
+from hexproof.scryfall.enums import SetType
 from hexproof.scryfall.schema.list_object import ListObject
-
-"""
-* Types
-"""
-
-SetTypes = Union[
-    Literal['core'],
-    Literal['expansion'],
-    Literal['masters'],
-    Literal['alchemy'],
-    Literal['masterpiece'],
-    Literal['arsenal'],
-    Literal['from_the_vault'],
-    Literal['spellbook'],
-    Literal['premium_deck'],
-    Literal['duel_deck'],
-    Literal['draft_innovation'],
-    Literal['treasure_chest'],
-    Literal['commander'],
-    Literal['planechase'],
-    Literal['archenemy'],
-    Literal['vanguard'],
-    Literal['funny'],
-    Literal['starter'],
-    Literal['box'],
-    Literal['promo'],
-    Literal['token'],
-    Literal['memorabilia'],
-    Literal['minigame']
-]
 
 """
 * Schemas
@@ -65,7 +37,7 @@ class Set(Schema):
     released_at: Optional[str] = None
     scryfall_uri: str
     search_uri: str
-    set_type: SetTypes
+    set_type: SetType
     tcgplayer_id: Optional[int] = None
     uri: str
 

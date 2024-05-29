@@ -19,7 +19,9 @@ from hexproof.scryfall.enums import (
     CardRarity,
     CardGame,
     CardImageStatus,
-    CardLayout, CardFrameEffects, CardSecurityStamp)
+    CardLayout,
+    CardFrameEffects,
+    CardSecurityStamp)
 from hexproof.scryfall.schema.list_object import ListObject
 
 """
@@ -115,13 +117,13 @@ class CardPreview(Schema):
 
 class CardPrices(Schema):
     """An object containing daily price information for a card."""
-    usd: str
-    usd_foil: str
-    usd_etched: str
-    eur: str
-    eur_foil: str
-    eur_etched: str
-    tix: str
+    usd: Optional[str] = None
+    usd_foil: Optional[str] = None
+    usd_etched: Optional[str] = None
+    eur: Optional[str] = None
+    eur_foil: Optional[str] = None
+    eur_etched: Optional[str] = None
+    tix: Optional[str] = None
 
 
 class CardRelated(Schema):
@@ -163,7 +165,7 @@ class Card(Schema):
     tcgplayer_id: Optional[int] = None
     tcgplayer_etched_id: Optional[int] = None
     cardmarket_id: Optional[int] = None
-    oracle_id: Optional[int] = None
+    oracle_id: Optional[str] = None
 
     """Gameplay Fields (REQUIRED): Properties relevant to the game rules that must be defined."""
     cmc: float
