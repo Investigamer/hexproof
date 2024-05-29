@@ -1,3 +1,17 @@
+## 0.2.1 (2024-05-29)
+
+### Fix
+
+- **mtgjson/enums**: Change incorrect MTGJSON url
+
+### Refactor
+
+- **vectors/fetch**: Separate caching and request funcs, remove deprecated `update_vectors_manifest`
+- **scryfall**: Small schema changes, remove deprecated type "SetTypes", add core imports to __init__
+- **scryfall/fetch**: Use "cache_" naming for download funcs, "get_" for JSON data loading funcs. Add new request funcs
+- **schema**: Treat missing lists as an empty list
+- **mtgjson/fetch**: Use "cache_" for saving JSON files locally, use "get_" for loading as JSON object. Implement new request functions
+
 ## 0.2.0 (2024-05-17)
 
 ### Feat
