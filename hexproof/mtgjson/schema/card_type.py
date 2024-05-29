@@ -8,5 +8,5 @@ from omnitils.schema import Schema
 
 class CardType(Schema):
     """Model describing the properties of any possible subtypes and supertypes of a CardType Data Model."""
-    subTypes: list[str]
-    superTypes: list[str]
+    subTypes: list[str] = []
+    superTypes: list[str] = []

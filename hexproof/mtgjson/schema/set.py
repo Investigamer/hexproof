@@ -21,11 +21,11 @@ class Set(Schema):
     baseSetSize: int
     block: Optional[str] = None
     booster: Optional[Booster] = None
-    cards: list[CardSet]
+    cards: list[CardSet] = []
     cardsphereSetId: Optional[int] = None
     code: str
     codeV3: Optional[str] = None
-    decks: list[DeckSet]
+    decks: list[DeckSet] = []
     isForeignOnly: Optional[bool] = None
     isFoilOnly: bool
     isNonFoilOnly: Optional[bool] = None

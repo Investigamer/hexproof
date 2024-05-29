@@ -28,9 +28,9 @@ class CardAtomic(Schema):
         only has evergreen properties that would never change from printing to printing."""
     asciiName: Optional[str] = None
     attractionLights: Optional[list[float]] = None
-    colorIdentity: list[str]
+    colorIdentity: list[str] = []
     colorIndicator: Optional[list[str]] = None
-    colors: list[str]
+    colors: list[str] = []
     convertedManaCost: float
     defense: Optional[str] = None
     edhrecRank: Optional[float] = None
@@ -61,12 +61,12 @@ class CardAtomic(Schema):
     rulings: Optional[list[Rulings]] = None
     side: Optional[str] = None
     subsets: Optional[list[str]] = None
-    subtypes: list[str]
-    supertypes: list[str]
+    subtypes: list[str] = []
+    supertypes: list[str] = []
     text: Optional[str] = None
     toughness: Optional[str] = None
     type: str
-    types: list[str]
+    types: list[str] = []
 
 
 class CardDeck(Schema):
@@ -75,13 +75,13 @@ class CardDeck(Schema):
     artistIds: Optional[list[str]] = None
     asciiName: Optional[str] = None
     attractionLights: Optional[list[float]] = None
-    availability: list[str]
+    availability: list[str] = []
     boosterTypes: Optional[list[str]] = None
     borderColor: str
     cardParts: Optional[list[str]] = None
-    colorIdentity: list[str]
+    colorIdentity: list[str] = []
     colorIndicator: Optional[list[str]] = None
-    colors: list[str]
+    colors: list[str] = []
     convertedManaCost: float
     count: float
     defense: Optional[str] = None
@@ -92,14 +92,14 @@ class CardDeck(Schema):
     faceFlavorName: Optional[str] = None
     faceManaValue: Optional[float] = None
     faceName: Optional[str] = None
-    finishes: list[str]
+    finishes: list[str] = []
     flavorName: Optional[str] = None
     flavorText: Optional[str] = None
     foreignData: Optional[list[ForeignData]] = None
     frameEffects: Optional[list[str]] = None
     frameVersion: str
     hand: Optional[str] = None
-    hasAlternativeDeckLimit: bool
+    hasAlternativeDeckLimit: Optional[bool] = None
     hasContentWarning: Optional[bool] = None
     hasFoil: bool
     hasNonFoil: bool
@@ -139,21 +139,21 @@ class CardDeck(Schema):
     promoTypes: Optional[list[str]] = None
     purchaseUrls: PurchaseUrls
     rarity: str
-    relatedCards: RelatedCards
+    relatedCards: Optional[RelatedCards] = None
     rebalancedPrintings: Optional[list[str]] = None
     rulings: Optional[list[Rulings]] = None
     securityStamp: Optional[str] = None
     setCode: str
     side: Optional[str] = None
     signature: Optional[str] = None
-    sourceProducts: Optional[list[str]] = None
+    sourceProducts: Optional[SourceProducts] = None
     subsets: Optional[list[str]] = None
-    subtypes: list[str]
-    supertypes: list[str]
+    subtypes: list[str] = []
+    supertypes: list[str] = []
     text: Optional[str] = None
     toughness: Optional[str] = None
     type: str
-    types: list[str]
+    types: list[str] = []
     uuid: str
     variations: Optional[list[str]] = None
     watermark: Optional[str] = None
@@ -165,13 +165,13 @@ class CardSet(Schema):
     artistIds: Optional[list[str]] = None
     asciiName: Optional[str] = None
     attractionLights: Optional[list[float]] = None
-    availability: list[str]
+    availability: list[str] = []
     boosterTypes: Optional[list[str]] = None
     borderColor: str
     cardParts: Optional[list[str]] = None
-    colorIdentity: list[str]
+    colorIdentity: list[str] = []
     colorIndicator: Optional[list[str]] = None
-    colors: list[str]
+    colors: list[str] = []
     convertedManaCost: float
     defense: Optional[str] = None
     duelDeck: Optional[str] = None
@@ -181,14 +181,14 @@ class CardSet(Schema):
     faceFlavorName: Optional[str] = None
     faceManaValue: Optional[float] = None
     faceName: Optional[str] = None
-    finishes: list[str]
+    finishes: list[str] = []
     flavorName: Optional[str] = None
     flavorText: Optional[str] = None
     foreignData: Optional[list[ForeignData]] = None
     frameEffects: Optional[list[str]] = None
     frameVersion: str
     hand: Optional[str] = None
-    hasAlternativeDeckLimit: bool
+    hasAlternativeDeckLimit: Optional[bool] = None
     hasContentWarning: Optional[bool] = None
     hasFoil: bool
     hasNonFoil: bool
@@ -236,12 +236,12 @@ class CardSet(Schema):
     signature: Optional[str] = None
     sourceProducts: Optional[SourceProducts] = None
     subsets: Optional[list[str]] = None
-    subtypes: list[str]
-    supertypes: list[str]
+    subtypes: list[str] = []
+    supertypes: list[str] = []
     text: Optional[str] = None
     toughness: Optional[str] = None
     type: str
-    types: list[str]
+    types: list[str] = []
     uuid: str
     variations: Optional[list[str]] = None
     watermark: Optional[str] = None
@@ -259,16 +259,16 @@ class CardToken(Schema):
     artist: Optional[str] = None
     artistIds: Optional[list[str]] = None
     asciiName: Optional[str] = None
-    availability: list[str]
+    availability: list[str] = []
     boosterTypes: Optional[list[str]] = None
     borderColor: str
     cardParts: Optional[list[str]] = None
-    colorIdentity: list[str]
+    colorIdentity: list[str] = []
     colorIndicator: Optional[list[str]] = None
-    colors: list[str]
+    colors: list[str] = []
     faceName: Optional[str] = None
     faceFlavorName: Optional[str] = None
-    finishes: list[str]
+    finishes: list[str] = []
     flavorText: Optional[str] = None
     frameEffects: Optional[list[str]] = None
     frameVersion: str
@@ -301,12 +301,12 @@ class CardToken(Schema):
     signature: Optional[str] = None
     sourceProducts: Optional[list[str]] = None
     subsets: Optional[list[str]] = None
-    subtypes: list[str]
-    supertypes: list[str]
+    subtypes: list[str] = []
+    supertypes: list[str] = []
     text: Optional[str] = None
     toughness: Optional[str] = None
     type: str
-    types: list[str]
+    types: list[str] = []
     uuid: str
     watermark: Optional[str] = None
 

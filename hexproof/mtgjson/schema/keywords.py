@@ -8,6 +8,6 @@ from omnitils.schema import Schema
 
 class Keywords(Schema):
     """Model describing the properties of keywords available to any card."""
-    abilityWords: list[str]
-    keywordAbilities: list[str]
-    keywordActions: list[str]
+    abilityWords: list[str] = []
+    keywordAbilities: list[str] = []
+    keywordActions: list[str] = []

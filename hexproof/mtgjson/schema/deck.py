@@ -16,8 +16,8 @@ class Deck(Schema):
     """Model describing the properties of an individual deck."""
     code: str
     commander: Optional[list[CardDeck]] = None
-    mainBoard: list[CardDeck]
+    mainBoard: list[CardDeck] = []
     name: str
     releaseDate: Union[str, None] = None
-    sideBoard: list[CardDeck]
+    sideBoard: list[CardDeck] = []
     type: str

@@ -31,7 +31,7 @@ class BoosterSheet(Schema):
 
 class BoosterConfig(Schema):
     """Model describing the properties of how a Booster Pack can be configured."""
-    boosters: dict[str, list[BoosterPack]]
+    boosters: list[BoosterPack] = []
     boostersTotalWeight: int
     sheets: dict[str, BoosterSheet]
 

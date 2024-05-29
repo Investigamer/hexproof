@@ -16,9 +16,9 @@ class DeckSet(Schema):
     """Model Describing the properties of an individual Deck within a Set."""
     code: str
     commander: Optional[list[CardSetDeck]] = None
-    mainBoard: list[CardSetDeck]
+    mainBoard: list[CardSetDeck] = []
     name: str
     releaseDate: Optional[str] = None
     sealedProductUuids: Optional[list[str]] = None
-    sideBoard: list[CardSetDeck]
+    sideBoard: list[CardSetDeck] = []
     type: str
