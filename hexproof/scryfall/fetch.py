@@ -56,12 +56,34 @@ def request_handler_scryfall(func) -> Callable:
 
 
 @request_handler_scryfall
+def get_file(url: yarl.URL, path: Path, header: Optional[dict] = None) -> Optional[Path]:
+    """Download a file from Scryfall's CDN (jpeg, svg, etc) using the appropriate rate limits.
+
+    Note:
+        See docs: https://scryfall.com/docs/api/images
+
+    Args:
+        url: Scryfall CDN resource URL.
+        path: Path to save the file.
+        header: Optional header to pass with the request.
+
+    Returns:
+        Path if the file is successfully downloaded.
+    """
+    return Path(
+        download_file(
+            url=url,
+            path=path,
+            header=header))
+
+
+@request_handler_scryfall
 def get_json(url: yarl.URL, header: Optional[dict] = None) -> dict:
-    """Retrieves JSON results from a Scryfall API request using the proper rate limits.
+    """Retrieves JSON results from a Scryfall API request using the appropriate rate limits.
 
     Args:
         url: Scryfall API request URL.
-        header: Optional headers to include in the response.
+        header: Optional header to pass with the request.
 
     Returns:
         Dict containing data from the JSON response.
@@ -84,7 +106,7 @@ def get_paginated_list(
     Args:
         url: Scryfall API request URL.
         list_object: Scryfall schema to use when processing the ListObject returned.
-        header: Optional headers to include in the response.
+        header: Optional header to pass with the request.
 
     Returns:
         A ListObject (CardList, SetList, etc) containing the results of all pages.
@@ -108,8 +130,54 @@ def get_paginated_list(
 
 
 """
-* Requesting Scryfall Objects
+* Request Object
+* Schema: Card
 """
+
+
+def get_card_unique(uid: str, header: Optional[dict] = None) -> ScrySchema.Card:
+    """Grabs a 'Card' object from Scryfall's `/cards/{uid}` endpoint.
+
+    Args:
+        uid: The unique Scryfall ID of the card.
+        header: Optional header to pass with the request.
+
+    Returns:
+        A Scryfall 'Card' object.
+    """
+    url = ScryURL.API.Cards.Main / uid
+    return ScrySchema.Card(
+        **get_json(
+            url=url,
+            header=header))
+
+
+def get_card_numbered(
+    set_code: str,
+    number: str,
+    lang: Optional[str] = None,
+    header: Optional[dict] = None
+) -> ScrySchema.Card:
+    """Grabs a 'Card' object from Scryfall's `/cards/{set}/{num}/{lang}` endpoint.
+
+    Args:
+        set_code: Set containing this card.
+        number: Collector number of the card within the given set.
+        lang: Optional language printing to retrieve.
+        header: Optional header to pass with the request.
+
+    Returns:
+        A Scryfall 'Card' object.
+    """
+    url = ScryURL.API.Cards.Main / set_code / number
+    if lang:
+        url = url / lang
+
+    # Request data
+    return ScrySchema.Card(
+        **get_json(
+            url=url,
+            header=header))
 
 
 def get_card_named(
@@ -118,13 +186,13 @@ def get_card_named(
     exact: bool = True,
     header: Optional[dict] = None
 ) -> ScrySchema.Card:
-    """Grabs a 'Card' object from Scryfall's `/card/named/{name}` endpoint.
+    """Grabs a 'Card' object from Scryfall's `/cards/named/{name}` endpoint.
 
     Args:
         name: The name of the card.
         set_code: Optionally limit the search to one set.
         exact: Whether to use exact name search or fuzzy.
-        header: Optional headers to include in the response.
+        header: Optional header to pass with the request.
 
     Returns:
         A Scryfall 'Card' object.
@@ -144,12 +212,18 @@ def get_card_named(
             header=header))
 
 
+"""
+* Request Object
+* Schema: Set
+"""
+
+
 def get_set(set_code: str, header: Optional[dict] = None) -> ScrySchema.Set:
-    """Grabs a 'Set' object from Scryfall's `/set/{code}` endpoint.
+    """Grabs a 'Set' object from Scryfall's `/sets/{code}` endpoint.
 
     Args:
         set_code: The set to look for, e.g. MH2
-        header: Request header object to pass with request.
+        header: Optional header to pass with the request.
 
     Returns:
         A Scryfall 'Set' object.
@@ -164,7 +238,8 @@ def get_set(set_code: str, header: Optional[dict] = None) -> ScrySchema.Set:
 
 
 """
-* Requesting Listed Scryfall Objects
+* Request List of Objects
+* Schema: SetList, CardList, RulingList
 """
 
 
@@ -175,7 +250,7 @@ def get_card_rulings(set_code: str, number: str, header: Optional[dict] = None) 
     Args:
         set_code: The set code of the card to look for, e.g. MH2
         number: The collector number of the card to look for, as a string.
-        header: Request header object to pass with request.
+        header: Optional header to pass with the request.
 
     Returns:
         A list of Scryfall 'Ruling' objects.
@@ -190,20 +265,41 @@ def get_card_rulings(set_code: str, number: str, header: Optional[dict] = None) 
     ).data
 
 
+def get_card_list(params: Optional[dict] = None, header: Optional[dict] = None) -> list[ScrySchema.Card]:
+    """Grab a 'CardList' object from Scryfall's `/cards/search` endpoint matching a provided query
+        and return the list of 'Card' objects.
+
+    Args:
+        params: Search parameters to pass with request.
+        header: Optional header to pass with the request.
+
+    Returns:
+        A list of Scryfall 'Card' objects.
+    """
+    url = ScryURL.API.Cards.Search.with_query(params)
+
+    # Request data
+    return get_paginated_list(
+        url=url,
+        list_object=ScrySchema.CardList,
+        header=header
+    ).data
+
+
 def get_set_list(header: Optional[dict] = None) -> list[ScrySchema.Set]:
     """Grab a 'SetList' object from Scryfall's `/sets/` endpoint and return the list of 'Set' objects.
 
     Args:
-        header: Request header object to pass with request.
+        header: Optional header to pass with the request.
 
     Returns:
         A list of Scryfall 'Set' objects.
     """
     # Request data
-    return ScrySchema.SetList(
-        **get_json(
+    return get_paginated_list(
             url=ScryURL.API.Sets.All,
-            header=header)
+            list_object=ScrySchema.SetList,
+            header=header
     ).data
 
 
@@ -213,16 +309,18 @@ def get_set_list(header: Optional[dict] = None) -> list[ScrySchema.Set]:
 
 
 @request_handler_scryfall
-def cache_set_list(path: Path) -> Path:
+def cache_set_list(path: Path, header: Optional[dict] = None) -> Path:
     """Stream the current Scryfall 'Sets' resource and save it to a file.
 
     Args:
         path: Path object where the JSON data will be saved.
+        header: Optional header to pass with the request.
 
     Returns:
         Path where the JSON file was saved.
     """
     download_file(
         url=ScryURL.API.Sets.All,
-        path=path)
+        path=path,
+        header=header)
     return path
