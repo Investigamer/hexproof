@@ -1,3 +1,9 @@
+## 0.2.2 (2024-05-30)
+
+### Refactor
+
+- **scryfall/fetch**: Implement new request funcs
+
 ## 0.2.1 (2024-05-29)
 
 ### Fix
