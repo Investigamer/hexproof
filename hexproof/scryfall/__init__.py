@@ -6,3 +6,4 @@ sourced from Scryfall.
 from .enums import *
 from .fetch import *
 from .schema import *
+from .utils import *
