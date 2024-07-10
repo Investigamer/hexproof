@@ -1,3 +1,9 @@
+## 0.3.0 (2024-07-10)
+
+### Feat
+
+- **scryfall**: Add utils for processing Scryfall URLs
+
 ## 0.2.2 (2024-05-30)
 
 ### Refactor
