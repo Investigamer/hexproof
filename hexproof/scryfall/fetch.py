@@ -90,7 +90,7 @@ def get_json(url: yarl.URL, header: Optional[dict] = None) -> dict:
     """
     if header is None:
         header = request_header_default.copy()
-    with requests.get(url, headers=header) as r:
+    with requests.get(str(url), headers=header) as r:
         r.raise_for_status()
         return r.json()
 
@@ -207,6 +207,31 @@ def get_card_named(
 
     # Request data
     return ScrySchema.Card(
+        **get_json(
+            url=url,
+            header=header))
+
+
+"""
+* Request Object
+* Schema: Catalog
+"""
+
+
+def get_catalog(name: str, header: Optional[dict] = None) -> ScrySchema.Catalog:
+    """Grabs a 'Catalog' object from Scryfall's `/catalogs/{name}` endpoint.
+
+    Args:
+        name: Name of the catalog to look for.
+        header: Optional header to pass with the request.
+
+    Returns:
+        A Scryfall 'Catalog' object.
+    """
+    url = ScryURL.API.Catalogs.Main / name.lower()
+
+    # Request data
+    return ScrySchema.Catalog(
         **get_json(
             url=url,
             header=header))
