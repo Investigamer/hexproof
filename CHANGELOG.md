@@ -1,3 +1,15 @@
+## 0.3.1 (2024-08-15)
+
+### Fix
+
+- **mtgjson/schema**: Update SealedProductCard field "uuid" to Optional
+
+### Refactor
+
+- **project**: Update deps and LICENSe
+- **vectors**: Rework vectors schema, enums, and funcs to utilize GitHub's release system to pull new mtg-vectors packages
+- **scryfall/fetch**: New endpoint: `get_catalog`
+
 ## 0.3.0 (2024-07-10)
 
 ### Feat
