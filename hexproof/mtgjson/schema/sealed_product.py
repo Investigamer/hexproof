@@ -19,7 +19,8 @@ class SealedProductCard(Schema):
     name: str
     number: str
     set: str
-    uuid: str
+    # Todo: Receiving data from MTGJSON where this field is missing
+    uuid: Optional[str] = None
 
 
 class SealedProductDeck(Schema):
@@ -44,6 +45,7 @@ class SealedProductSealed(Schema):
     count: int
     name: str
     set: str
+    # Todo: Receiving data from MTGJSON where this field is missing
     uuid: Optional[str] = None
 
 
