@@ -16,6 +16,7 @@ class Meta(Schema):
 
 
 class SetSymbolManifest(Schema):
+    aliases: dict[str, str]
     routes: dict[str, str]
     rarities: dict[str, str]
     symbols: dict[str, list[str]]

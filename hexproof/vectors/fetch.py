@@ -1,7 +1,9 @@
 """
 * MTG Vectors Request Handling
 """
+import os
 # Standard Library Imports
+from datetime import datetime
 from pathlib import Path
 from typing import Optional, Union
 
@@ -22,33 +24,48 @@ from hexproof.vectors import schema as VectorSchema
 """
 
 
-def get_vectors_manifest(
-    url: Union[yarl.URL, str, None] = None,
+def get_latest_release(
+    owner_repo: Optional[str] = None,
     header: Optional[dict] = None,
     auth_token: Optional[str] = None
-) -> Optional[VectorSchema.Manifest]:
-    """Gets the current mtg-vectors symbol manifest and returns it as a 'Manifest' object.
+) -> Optional[dict[str, VectorSchema.Meta]]:
+    """Gets a dictionary of 'Meta' objects, each representing one of the latest release packages
+        from the mtg-vectors repository.
 
     Args:
-        url: URL to fetch manifest from, uses official `mtg-vectors` repository if not provided.
+        owner_repo: Str in '{OWNER}/{REPO}' notation, uses the default mtg-vectors repository if not provided.
         header: Header object to pass with request, uses default if not provided.
         auth_token: Optional auth token to pass with request, increases rate limits.
 
     Returns:
-        A mtg-vectors 'Manifest' object.
+        A dictionary where keys are the type of release package and values are a 'Meta' object
+            describing the date, version, and download URI for that release package.
     """
+    url = VectorURL.DefaultReleases
+    if owner_repo is not None:
+        url = VectorURL.API / 'repos' / owner_repo / 'releases' / 'latest'
     try:
-        data = gh_get_data_json(
-            url=url or VectorURL.Manifest,
+        # Get packages from latest release
+        releases = gh_get_data_json(
+            url=url,
             header=header,
             auth_token=auth_token)
-        return VectorSchema.Manifest(**data)
+        _tag = releases['tag_name']
+        _, _date = _tag.split('+')
+
+        # Return a dictionary of 'Meta' objects
+        return {
+            # Package name splits to either "optimized" or "all"
+            pkg['name'].split('.')[1]: VectorSchema.Meta(
+                date=datetime.strptime(_date, '%Y%m%d').strftime('%Y-%m-%d'),
+                version=_tag,
+                uri=pkg['browser_download_url']
+            ) for pkg in releases['assets']
+        }
     except RequestException:
-        return logger.error('Unable to reach mtg-vectors manifest URL!')
-    except FileExistsError:
-        return logger.error('Unable to write new mtg-vectors manifest!')
-    except (OSError, ValueError):
-        return logger.error('Unable to dump data file!')
+        return logger.error('Unable to pull mtg-vectors release from GitHub!')
+    except KeyError:
+        return logger.error('Incorrect JSON data returned from mtg-vectors GitHub release!')
 
 
 """
@@ -56,44 +73,13 @@ def get_vectors_manifest(
 """
 
 
-def cache_vectors_manifest(
-    path: Path,
-    url: Union[yarl.URL, str, None] = None,
-    header: Optional[dict] = None,
-    auth_token: Optional[str] = None
-) -> Optional[Path]:
-    """Gets the current mtg-vectors symbol manifest.
-
-    Args:
-        path: Path to save the manifest file.
-        url: URL to fetch manifest from, uses official `mtg-vectors` repository if not provided.
-        header: Header object to pass with request, uses default if not provided.
-        auth_token: Optional auth token to pass with request, increases rate limits.
-
-    Returns:
-        Path to the manifest file.
-    """
-    try:
-        _path = gh_download_file(
-            url=url or VectorURL.Manifest,
-            path=path,
-            header=header,
-            auth_token=auth_token)
-        return _path
-    except RequestException:
-        return logger.error('Unable to reach mtg-vectors manifest URL!')
-    except FileExistsError:
-        return logger.error('Unable to write new mtg-vectors manifest!')
-    except (OSError, ValueError):
-        return logger.error('Unable to dump data file!')
-
-
 def cache_vectors_package(
-        directory: Path,
-        url: Union[yarl.URL, str, None] = None,
-        header: Optional[dict] = None,
-        auth_token: Optional[str] = None,
-        chunk_size: int = 1024 * 1024 * 8
+    directory: Path,
+    url: Union[yarl.URL, str] = None,
+    header: Optional[dict] = None,
+    auth_token: Optional[str] = None,
+    chunk_size: int = 1024 * 1024 * 8,
+    remove_zip: bool = True
 ) -> Optional[Path]:
     """Updates our 'Set' symbol local assets.
 
@@ -103,13 +89,13 @@ def cache_vectors_package(
         header: Header object to pass with request, uses default if not provided.
         auth_token: Optional auth token to pass with request, increases rate limits.
         chunk_size: Chunk size to use when writing package file from stream, default is 8MB.
+        remove_zip: Whether to remove the zip after extraction.
 
     Returns:
         Directory the package was extracted to, if successful, otherwise None.
     """
 
     # Get zip
-    url = url or VectorURL.Package
     if not directory.is_dir():
         mkdir_full_perms(directory)
     path = directory / 'package.zip'
@@ -128,6 +114,8 @@ def cache_vectors_package(
     # Unpack zip
     try:
         unpack_zip(path)
+        if remove_zip:
+            os.remove(path)
         return directory
     except Exception as e:
         logger.exception(e)

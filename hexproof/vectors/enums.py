@@ -17,9 +17,9 @@ import yarl
 
 @dataclass
 class VectorURL:
-    Main = yarl.URL('https://raw.githubusercontent.com/Investigamer/mtg-vectors/main')
-    Manifest = Main / 'manifest.json'
-    Package = Main / 'package.zip'
+    API = yarl.URL('https://api.github.com')
+    DefaultReleases = API / 'repos/Investigamer/mtg-vectors/releases/latest'
+    DefaultPackages = yarl.URL('https://github.com/Investigamer/mtg-vectors/releases/download')
 
 
 class SymbolRarity(StrConstant):
