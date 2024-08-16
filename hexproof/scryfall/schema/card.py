@@ -196,7 +196,7 @@ class Card(Schema):
     """Print Fields (REQUIRED): Properties unique to a specific card printing that must be defined."""
     booster: bool
     border_color: BorderColor
-    card_back_id: str
+    card_back_id: Optional[str] = None
     collector_number: str
     digital: bool
     finishes: list[CardFinishes]

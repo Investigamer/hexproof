@@ -94,6 +94,7 @@ class ManaColor(StrConstant):
     Black = 'B'
     Red = 'R'
     Green = 'G'
+    Colorless = 'C'
 
 
 """
