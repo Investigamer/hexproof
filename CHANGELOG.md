@@ -1,3 +1,9 @@
+## 0.3.2 (2024-08-16)
+
+### Fix
+
+- **scryfall/schema**: card_back_id can be missing from Card schema, some ManaColor fields can include C (colorless) mana value
+
 ## 0.3.1 (2024-08-15)
 
 ### Fix
