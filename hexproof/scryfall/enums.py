@@ -163,6 +163,7 @@ class CardLayout(StrConstant):
     Meld = 'meld'
     Leveler = 'leveler'
     Class = 'class'
+    Case = 'case'
     Saga = 'saga'
     Adventure = 'adventure'
     Mutate = 'mutate'
