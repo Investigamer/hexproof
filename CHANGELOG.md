@@ -1,3 +1,9 @@
+## 0.3.3 (2024-08-22)
+
+### Refactor
+
+- **CardLayout**: Add "case" as a recognized Scryfall card layout
+
 ## 0.3.2 (2024-08-16)
 
 ### Fix
