@@ -1,3 +1,9 @@
+## 0.3.4 (2024-08-24)
+
+### Refactor
+
+- **pyproject.toml**: Update project information
+
 ## 0.3.3 (2024-08-22)
 
 ### Refactor
