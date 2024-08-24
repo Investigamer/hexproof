@@ -2,12 +2,9 @@
 name = "hexproof"
 version = "0.3.3"
 description = "A comprehensive library of Magic the Gathering API utilities."
-authors = ["Investigamer <freethoughtleft@gmail.com>"]
+authors = ["Investigamer <hexproofsystems@gmail.com>"]
 license = "MPL-2.0"
 readme = "README.md"
-repository = "https://github.com/Investigamer/hexproof"
-issues = "https://github.com/Investigamer/hexproof/issues"
-changelog = "https://github.com/Investigamer/hexproof/blob/main/CHANGELOG.md"
 keywords = ["hexproof", "mtg", "scryfall", "magic", "gathering", "api", "investigamer"]
 classifiers = [
     # Development status
@@ -28,6 +25,13 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12"
 ]
+
+[tool.poetry.urls]
+"Changelog" = "https://github.com/Investigamer/hexproof/blob/main/CHANGELOG.md"
+"Discord" = "https://discord.gg/magicproxies"
+"Issues" = "https://github.com/Investigamer/hexproof/issues"
+"Source" = "https://github.com/Investigamer/hexproof"
+"Sponsor" = "https://patreon.com/mpcfill"
 
 [[tool.poetry.packages]]
 include = "hexproof"
