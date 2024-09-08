@@ -1,3 +1,10 @@
+## 0.3.5 (2024-09-08)
+
+### Refactor
+
+- **cli**: Move to class-based command groups, implement better testing and logging
+- **hexapi**: Add URL enums
+
 ## 0.3.4 (2024-08-24)
 
 ### Refactor
