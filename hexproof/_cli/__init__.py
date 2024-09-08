@@ -9,11 +9,12 @@ import click
 from .test_schema import TestSchema
 
 
-@click.group(commands={'test-schema': TestSchema})
-def HexproofCLI():
-    """Hexproof CLI application entrypoint."""
-    pass
+class MainCLIGroup(click.Group):
+    def __init__(self, *args, **kwargs):
+        super().__init__(
+            *args, commands={'test-schema': TestSchema()}, **kwargs)
 
 
 # Export CLI Application
+HexproofCLI = MainCLIGroup()
 __all__ = ['HexproofCLI']
