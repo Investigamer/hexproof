@@ -76,7 +76,7 @@ def get_json(url: yarl.URL, header: Optional[dict] = None) -> dict:
     """
     if header is None:
         header = request_header_default.copy()
-    with requests.get(url, headers=header) as r:
+    with requests.get(str(url), headers=header) as r:
         r.raise_for_status()
         return r.json()
 
