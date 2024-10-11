@@ -2,9 +2,11 @@
 * Checklist Targeted Scraping
 * Scrapes from: https://www.mtgpics.com/set_checklist?set={num}
 """
+from datetime import datetime
 # Standard Libray Imports
 from typing import Iterator
 
+import yarl
 # Third Party Imports
 from bs4 import BeautifulSoup, Tag
 from omnitils.exceptions import return_on_exception
@@ -80,7 +82,7 @@ def scrape_set_code(soup: BeautifulSoup) -> str | None:
     return url['href'].split('card?ref=')[-1][:3].lower()
 
 
-def scrape_date(soup: BeautifulSoup) -> str:
+def scrape_date(soup: BeautifulSoup) -> datetime:
     """Returns the release date displayed on an MTGPIcs set 'checklist' page.
 
     Args:
@@ -90,7 +92,8 @@ def scrape_date(soup: BeautifulSoup) -> str:
         A date string in format 'YYYY-MM-DD'.
     """
     date = soup.find('div', class_='titleB16')
-    return normalize_datestr(date.text.split(':')[-1].strip())
+    date_str = normalize_datestr(date.text.split(':')[-1].strip())
+    return datetime.strptime(date_str, '%Y-%m-%d')
 
 
 @return_on_exception('Unnamed Set')
@@ -109,12 +112,30 @@ def scrape_name(soup: BeautifulSoup) -> str:
     return name.text.replace(' - mtgpics.com', '').strip()
 
 
+@return_on_exception(None)
+def scrape_url_logo(soup: BeautifulSoup) -> yarl.URL:
+    """Returns the image URL of the logo for an MTGPics set 'checklist' page.
+
+    Args:
+        soup: A BeautifulSoup object generated from parsing a web page.
+
+    Returns:
+        A URL for this set's logo image.
+    """
+    url = MTGPicsURL.Main / soup.find("td", {
+        "class": "titleB16",
+        "align": "center",
+        "width": "50%"
+    }).find('img').get('src')
+    return url
+
+
 @return_on_exception([])
 def get_cards_list(
     soup: BeautifulSoup,
     first_only: bool = False,
     multi: bool = False
-) -> list[MTGPics.ScrapedCard]:
+) -> list[MTGPics.Card]:
     """Retrieves a dictionary of cards scraped from a Set 'checklist' page.
 
     Args:
@@ -139,11 +160,11 @@ def get_cards_list(
         artist_tag = cols[6].find('a')
         ref = name_tag['href'].split('=')[-1]
         url = MTGPicsURL.Main / name_tag['href']
-        img = MTGPicsURL.PicsReg / f"{ref[:3]}/{ref[3:]}.jpg"
+        url_img = MTGPicsURL.PicsReg / f"{ref[:3]}/{ref[3:]}.jpg"
 
         # Add card to dataset
         cards.append(
-            MTGPics.ScrapedCard(
+            MTGPics.Card(
                 number=cols[0].text.strip(),
                 name=name_tag.text.strip(),
                 ref=name_tag['href'].split('=')[-1],
@@ -151,8 +172,11 @@ def get_cards_list(
                 subset=subset_tag.text.strip() if subset_tag else None,
                 artist=artist_tag.text.strip() if artist_tag else None,
                 pt=cols[4].text.strip(),
-                img=img,
-                url=url))
+                # Todo: Add arts
+                arts=[],
+                url=url,
+                url_img=url_img
+            ))
         if first_only:
             return cards
 
@@ -164,7 +188,7 @@ def get_cards_list(
 def yield_cards_list(
     soup: BeautifulSoup,
     multi: bool = False
-) -> Iterator[MTGPics.ScrapedCard]:
+) -> Iterator[MTGPics.Card]:
     """Retrieves a dictionary of cards scraped from a Set 'checklist' page.
 
     Args:
@@ -187,10 +211,10 @@ def yield_cards_list(
         artist_tag = cols[6].find('a')
         ref = name_tag['href'].split('=')[-1]
         url = MTGPicsURL.Main / name_tag['href']
-        img = MTGPicsURL.PicsReg / f"{ref[:3]}/{ref[3:]}.jpg"
+        url_img = MTGPicsURL.PicsReg / f"{ref[:3]}/{ref[3:]}.jpg"
 
         # Add card to dataset
-        yield MTGPics.ScrapedCard(
+        yield MTGPics.Card(
             number=cols[0].text.strip(),
             name=name_tag.text.strip(),
             ref=name_tag['href'].split('=')[-1],
@@ -198,5 +222,7 @@ def yield_cards_list(
             subset=subset_tag.text.strip() if subset_tag else None,
             artist=artist_tag.text.strip() if artist_tag else None,
             pt=cols[4].text.strip(),
-            img=img,
-            url=url)
+            # Todo: Add arts
+            arts=[],
+            url=url,
+            url_img=url_img)

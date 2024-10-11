@@ -27,11 +27,12 @@ class Card(ArbitrarySchema):
     """Represents an MTG 'Card' scraped from MTGPics."""
 
     # Schema Fields
-    number: int
+    number: str
     name: str
     ref: str
     type: str
     url: yarl.URL
+    url_img: yarl.URL
     arts: list[Art]
 
     # Maybe list of artists, or maybe use faces instead
@@ -53,7 +54,7 @@ class Set(ArbitrarySchema):
     date_raw: str | None = None
     name: str
     normalized: str
-    img_logo: yarl.URL
+    url_logo: yarl.URL
 
     # Todo: Should we approach this a different way? Maybe defined set types?
     is_collection: bool = False
