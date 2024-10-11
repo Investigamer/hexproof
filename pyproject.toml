@@ -39,12 +39,12 @@ include = "hexproof"
 [tool.poetry.dependencies]
 python = ">=3.10,<3.13"
 requests = "^2.31.0"
-pydantic = "^2.6.4"
-PyYAML = "^6.0.1"
-tomlkit = "^0.12.4"
-tomli = "^2.0.1"
+pydantic = ">=2.9.2"
+PyYAML = ">=6.0.1"
+tomlkit = ">=0.13.2"
+tomli = ">=2.0.2"
 loguru = "^0.7.2"
-omnitils = "^1.4.1"
+omnitils = "^1.4.3"
 bs4 = "^0.0.2"
 
 [tool.poetry.group.dev.dependencies]
