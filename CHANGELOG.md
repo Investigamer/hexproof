@@ -1,3 +1,9 @@
+## 0.3.7 (2024-10-10)
+
+### Fix
+
+- **mtgpics**: Rework scraping to bring in line with new schemas
+
 ## 0.3.6 (2024-10-10)
 
 ### Refactor
