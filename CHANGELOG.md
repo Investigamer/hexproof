@@ -1,3 +1,10 @@
+## 0.3.6 (2024-10-10)
+
+### Refactor
+
+- **mtgpics/schemas**: Add more fields to preliminary MTGPics schemas
+- **mtgjson/fetch**: Convert URL to str
+
 ## 0.3.5 (2024-09-08)
 
 ### Refactor
