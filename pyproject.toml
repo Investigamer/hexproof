@@ -25,6 +25,10 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12"
 ]
+packages = [
+    {include = "hexproof"},
+    {include = "hexproof/py.typed"}
+]
 
 [tool.poetry.urls]
 Changelog = "https://github.com/Investigamer/hexproof/blob/main/CHANGELOG.md"
@@ -32,9 +36,6 @@ Discord = "https://discord.gg/magicproxies"
 Issues = "https://github.com/Investigamer/hexproof/issues"
 Source = "https://github.com/Investigamer/hexproof"
 Sponsor = "https://patreon.com/mpcfill"
-
-[[tool.poetry.packages]]
-include = "hexproof"
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.13"
@@ -58,6 +59,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.commitizen]
 version = "0.3.7"
+encoding = "utf-8"
 tag_format = "$major.$minor.$patch"
 update_changelog_on_bump = true
 version_files = [
