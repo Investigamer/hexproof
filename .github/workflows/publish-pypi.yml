@@ -4,7 +4,6 @@ on:
   push:
     tags:
       - '*.*.*'
-    bran
 
 # Prevent overlapping publishes if tags get pushed in quick succession.
 concurrency:
