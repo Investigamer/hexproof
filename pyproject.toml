@@ -2,7 +2,7 @@
 name = "hexproof"
 version = "0.4.0"
 description = "A comprehensive library of Magic the Gathering API utilities."
-authors = [{ name = "Investigamer", email = "hexproofsystems@gmail.com" }]
+authors = [{ name = "Investigamer", email = "dev@hexproof.io" }]
 license = "MPL-2.0"
 readme = "README.md"
 requires-python = ">=3.11,<3.15"
