@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - '*.*.*'
+  workflow_dispatch:
 
 # Prevent overlapping publishes if tags get pushed in quick succession.
 concurrency:
