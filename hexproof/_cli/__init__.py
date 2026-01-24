@@ -3,18 +3,13 @@
 * Primarily used for testing and development.
 """
 # Third Party Imports
-import click
+from typer import Typer
+
 
 # Local Imports
-from .test_schema import TestSchema
-
-
-class MainCLIGroup(click.Group):
-    def __init__(self, *args, **kwargs):
-        super().__init__(
-            *args, commands={'test-schema': TestSchema()}, **kwargs)
-
+from hexproof._cli.test import TestCLI
 
 # Export CLI Application
-HexproofCLI = MainCLIGroup()
+HexproofCLI = Typer()
+HexproofCLI.add_typer(TestCLI, name="test")
 __all__ = ['HexproofCLI']
