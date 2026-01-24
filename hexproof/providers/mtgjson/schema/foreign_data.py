@@ -2,19 +2,21 @@
 * MTGJSON Schema: Foreign Data
 * https://mtgjson.com/data-models/foreign-data/
 """
-# Standard Library Imports
-from typing import Optional
+# Local Imports
+from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
+from hexproof.providers.mtgjson.schema.identifiers import Identifiers
+from pydantic import Field
 
-# Third Party Imports
-from omnitils.schema import Schema
 
-
-class ForeignData(Schema):
+class ForeignData(MTGJsonSchema):
     """Model describing the properties for a card in alternate languages."""
-    faceName: Optional[str] = None
-    flavorText: Optional[str] = None
+    faceName: str | None = None
+    flavorText: str | None = None
+    identifiers: Identifiers = Field(default_factory=list)
     language: str
-    multiverseId: Optional[int] = None
+    multiverseId: int | None = None
     name: str
-    text: Optional[str] = None
-    type: Optional[str] = None
+    text: str | None = None
+    type: str | None = None
+    # Todo: Docs mismatch, seems optional
+    uuid: str | None = None

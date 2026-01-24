@@ -2,11 +2,11 @@
 * MTGJSON Schema: Leadership Skills
 * https://mtgjson.com/data-models/leadership-skills/
 """
-# Third Party Imports
-from omnitils.schema import Schema
+# Local Imports
+from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
 
 
-class LeadershipSkills(Schema):
+class LeadershipSkills(MTGJsonSchema):
     """Model describing the properties of formats that a card is legal to be your Commander in
         play formats that utilize Commanders."""
     brawl: bool

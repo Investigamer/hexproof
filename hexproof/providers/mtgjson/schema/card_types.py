@@ -2,17 +2,16 @@
 * MTGJSON Schema: Card Types
 * https://mtgjson.com/data-models/card-types/
 """
-# Third Party Imports
-from omnitils.schema import Schema
-
 # Local Imports
-from hexproof.mtgjson.schema.card_type import CardType
+from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
+from hexproof.providers.mtgjson.schema.card_type import CardType
 
 
-class CardTypes(Schema):
+class CardTypes(MTGJsonSchema):
     """Model describing the properties of a Card Data Model that has possible configurations of
         associated subtypes and supertypes."""
     artifact: CardType
+    battle: CardType
     conspiracy: CardType
     creature: CardType
     enchantment: CardType

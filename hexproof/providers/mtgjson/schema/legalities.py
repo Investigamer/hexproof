@@ -2,35 +2,32 @@
 * MTGJSON Schema: Legalities
 * https://mtgjson.com/data-models/legalities/
 """
-# Standard Library Imports
-from typing import Optional
-
-# Third Party Imports
-from omnitils.schema import Schema
+# Local Imports
+from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
 
 
-class Legalities(Schema):
+class Legalities(MTGJsonSchema):
     """Model describing the properties of legalities of a card in various game play formats."""
-    alchemy: Optional[str] = None
-    brawl: Optional[str] = None
-    commander: Optional[str] = None
-    duel: Optional[str] = None
-    explorer: Optional[str] = None
-    future: Optional[str] = None
-    gladiator: Optional[str] = None
-    historic: Optional[str] = None
-    historicbrawl: Optional[str] = None
-    legacy: Optional[str] = None
-    modern: Optional[str] = None
-    oathbreaker: Optional[str] = None
-    oldschool: Optional[str] = None
-    pauper: Optional[str] = None
-    paupercommander: Optional[str] = None
-    penny: Optional[str] = None
-    pioneer: Optional[str] = None
-    predh: Optional[str] = None
-    premodern: Optional[str] = None
-    standard: Optional[str] = None
-    standardbrawl: Optional[str] = None
-    timeless: Optional[str] = None
-    vintage: Optional[str] = None
+    alchemy: str | None = None
+    brawl: str | None = None
+    commander: str | None = None
+    duel: str | None = None
+    explorer: str | None = None
+    future: str | None = None
+    gladiator: str | None = None
+    historic: str | None = None
+    historicbrawl: str | None = None
+    legacy: str | None = None
+    modern: str | None = None
+    oathbreaker: str | None = None
+    oldschool: str | None = None
+    pauper: str | None = None
+    paupercommander: str | None = None
+    penny: str | None = None
+    pioneer: str | None = None
+    predh: str | None = None
+    premodern: str | None = None
+    standard: str | None = None
+    standardbrawl: str | None = None
+    timeless: str | None = None
+    vintage: str | None = None

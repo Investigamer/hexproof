@@ -2,11 +2,13 @@
 * MTGJSON Schema: Source Products
 * https://mtgjson.com/data-models/source-products/
 """
-# Third Party Imports
-from omnitils.schema import Schema
+# Local Imports
+from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
+from pydantic import Field
 
 
-class SourceProducts(Schema):
+class SourceProducts(MTGJsonSchema):
     """Model describing the uuids for the card version in a Sealed Product."""
-    foil: list[str] = []
-    nonfoil: list[str] = []
+    etched: list[str] = Field(default_factory=list)
+    foil: list[str] = Field(default_factory=list)
+    nonfoil: list[str] = Field(default_factory=list)

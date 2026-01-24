@@ -2,22 +2,23 @@
 * MTGJSON Request Handling
 """
 # Standard Library Imports
+from collections.abc import Callable, Iterator
 import os
-from typing import Callable, Optional
 from pathlib import Path
 
 # Third Party Imports
-import requests
-import yarl
-from ratelimit import sleep_and_retry
-from ratelimit.decorators import RateLimitDecorator
 from backoff import on_exception, expo
+import ijson
 from omnitils.fetch import request_header_default, download_file
 from omnitils.files.archive import unpack_tar_gz
+from ratelimit import sleep_and_retry
+from ratelimit.decorators import RateLimitDecorator
+import requests
+import yarl
 
 # Local Imports
-from hexproof.mtgjson.constants import urls as MTGJsonURL
-from hexproof.mtgjson import schema as MTGJsonTypes
+from hexproof.providers.mtgjson import schema as MTGJsonTypes
+from hexproof.providers.mtgjson.constants import urls as MTGJsonURL
 
 # Rate limiter to safely limit MTGJSON requests
 mtgjson_rate_limit = RateLimitDecorator(calls=20, period=1)
@@ -65,7 +66,7 @@ def request_handler_mtgjson_gql(func) -> Callable:
 
 
 @request_handler_mtgjson
-def get_json(url: yarl.URL, header: Optional[dict] = None) -> dict:
+def get_json(url: yarl.URL, header: dict | None = None) -> dict:
     """Retrieves JSON results from a MTGJSON API request using the proper rate limits.
 
     Args:
@@ -99,8 +100,28 @@ def get_cards_atomic_all() -> dict[str, MTGJsonTypes.CardAtomic]:
         headers=request_header_default.copy()
     ) as r:
         r.raise_for_status()
-        _obj = r.json().get('data', [])
-        return {k: MTGJsonTypes.CardAtomic(**v) for k, v in _obj.items()}
+        r.raw.decode_content = True
+        return {k: MTGJsonTypes.CardAtomic(**v) for k, v in ijson.kvitems(r.raw, "data")}
+
+
+@request_handler_mtgjson
+def yield_cards_atomic_raw() -> Iterator[tuple[str, MTGJsonTypes.CardAtomic]]:
+    """Get a dictionary of all MTGJSON 'CardAtomic' objects mapped to their respective card names,
+        in raw dictionary format.
+
+    Returns:
+        A dict with card name as the key, a dictionary representing a MTGJSON 'CardAtomic'
+            object as the value.
+    """
+    with requests.get(
+        url=MTGJsonURL.API_ATOMIC_CARDS,
+        headers=request_header_default.copy(),
+        stream=True,
+    ) as r:
+        r.raise_for_status()
+        r.raw.decode_content = True
+        for k, v in ijson.kvitems(r.raw, "data"):
+            yield k, v
 
 
 @request_handler_mtgjson
@@ -147,11 +168,30 @@ def get_deck_list() -> list[MTGJsonTypes.DeckList]:
     """
     with requests.get(
         url=MTGJsonURL.API_DECK_LIST,
-        headers=request_header_default.copy()
+        headers=request_header_default.copy(),
+        stream=True,
     ) as r:
         r.raise_for_status()
-        _obj = r.json().get('data', [])
-        return [MTGJsonTypes.DeckList(**n) for n in _obj]
+        r.raw.decode_content = True
+        return [MTGJsonTypes.DeckList(**n) for n in ijson.items(r.raw, "data.item")]
+
+
+@request_handler_mtgjson
+def yield_deck_list_raw() -> Iterator[dict]:
+    """Get the current MTGJSON 'DeckList' resource, yielding each item as a raw dictionary.
+
+    Returns:
+        A list of dictionaries representing MTGJSON 'Decklist' objects.
+    """
+    with requests.get(
+        url=MTGJsonURL.API_DECK_LIST,
+        headers=request_header_default.copy(),
+        stream=True,
+    ) as r:
+        r.raise_for_status()
+        r.raw.decode_content = True
+        for n in ijson.items(r.raw, "data.item"):
+            yield n
 
 
 @request_handler_mtgjson
@@ -198,8 +238,27 @@ def get_prices_today_all() -> MTGJsonTypes.Price:
         headers=request_header_default.copy()
     ) as r:
         r.raise_for_status()
-        _obj = r.json().get('data', [])
-        return {k: MTGJsonTypes.PriceFormats(**v) for k, v in _obj.items()}
+        r.raw.decode_content = True
+        return {k: MTGJsonTypes.PriceFormats(**v) for k, v in ijson.kvitems(r.raw, "data")}
+
+
+@request_handler_mtgjson
+def yield_prices_today_raw() -> Iterator[tuple[str, dict]]:
+    """Get today's MTGJSON 'PriceFormats' resource for the current day and yield each item.
+
+    Returns:
+        A dict with card UUID as the key, a dictionary representing a MTGJSON 'PriceFormats'
+            object as the value.
+    """
+    with requests.get(
+        url=MTGJsonURL.API_ALL_PRICES_TODAY,
+        headers=request_header_default.copy(),
+        stream=True,
+    ) as r:
+        r.raise_for_status()
+        r.raw.decode_content = True
+        for k, v in ijson.kvitems(r.raw, "data"):
+            yield k, v
 
 
 @request_handler_mtgjson
@@ -230,11 +289,30 @@ def get_set_list() -> list[MTGJsonTypes.SetList]:
     """
     with requests.get(
         url=MTGJsonURL.API_SET_LIST,
-        headers=request_header_default.copy()
+        headers=request_header_default.copy(),
+        stream=True,
     ) as r:
         r.raise_for_status()
-        _obj = r.json().get('data', [])
-        return [MTGJsonTypes.SetList(**n) for n in _obj]
+        r.raw.decode_content = True
+        return [MTGJsonTypes.SetList(**n) for n in ijson.items(r.raw, "data.item")]
+
+
+@request_handler_mtgjson
+def yield_set_list_raw() -> Iterator[dict]:
+    """Get the current MTGJSON 'SetList' resource as raw dictionaries.
+
+    Returns:
+        A list of dictionaries representing MTGJSON 'SetList' objects.
+    """
+    with requests.get(
+        url=MTGJsonURL.API_SET_LIST,
+        headers=request_header_default.copy(),
+        stream=True,
+    ) as r:
+        r.raise_for_status()
+        r.raw.decode_content = True
+        for n in ijson.items(r.raw, "data.item"):
+            yield n
 
 
 """

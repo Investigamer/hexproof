@@ -3,7 +3,7 @@
 * https://mtgjson.com/data-models/
 """
 from .booster import Booster, BoosterConfig, BoosterPack, BoosterSheet
-from .card import Card, CardAtomic, CardDeck, CardSet, CardSetDeck, CardToken
+from .card import Card, CardAtomic, CardDeck, CardSet, CardSetDeck, CardToken, CardTokenDeck
 from .card_type import CardType
 from .card_types import CardTypes
 from .deck import Deck
@@ -22,7 +22,8 @@ from .sealed_product import (
     SealedProduct,
     SealedProductCard,
     SealedProductContents,
-    SealedProductContentsConfigs,
+    SealedProductContentsVariable,
+    SealedProductContentsVariableConfig,
     SealedProductDeck,
     SealedProductOther,
     SealedProductPack,

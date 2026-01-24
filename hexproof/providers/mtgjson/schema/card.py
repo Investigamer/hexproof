@@ -2,19 +2,19 @@
 * MTGJSON Schema: Card
 * https://mtgjson.com/data-models/card/
 """
-# Standard Library Imports
-from typing import Optional, Union
+# Third Party Imports
+from pydantic import Field
 
 # Local Imports
-from hexproof.mtgjson.schema.__base__ import MTGJsonSchema
-from hexproof.mtgjson.schema.foreign_data import ForeignData
-from hexproof.mtgjson.schema.identifiers import Identifiers
-from hexproof.mtgjson.schema.leadership_skills import LeadershipSkills
-from hexproof.mtgjson.schema.legalities import Legalities
-from hexproof.mtgjson.schema.purchase_urls import PurchaseUrls
-from hexproof.mtgjson.schema.related_cards import RelatedCards
-from hexproof.mtgjson.schema.rulings import Rulings
-from hexproof.mtgjson.schema.source_products import SourceProducts
+from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
+from hexproof.providers.mtgjson.schema.foreign_data import ForeignData
+from hexproof.providers.mtgjson.schema.identifiers import Identifiers
+from hexproof.providers.mtgjson.schema.leadership_skills import LeadershipSkills
+from hexproof.providers.mtgjson.schema.legalities import Legalities
+from hexproof.providers.mtgjson.schema.purchase_urls import PurchaseUrls
+from hexproof.providers.mtgjson.schema.related_cards import RelatedCards
+from hexproof.providers.mtgjson.schema.rulings import Rulings
+from hexproof.providers.mtgjson.schema.source_products import SourceProducts
 
 """
 * Schemas
@@ -24,299 +24,331 @@ from hexproof.mtgjson.schema.source_products import SourceProducts
 class CardAtomic(MTGJsonSchema):
     """Model describing the properties of a single "atomic" card, an oracle-like entity of a card that
         only has evergreen properties that would never change from printing to printing."""
-    asciiName: Optional[str] = None
-    attractionLights: Optional[list[float]] = None
-    colorIdentity: list[str] = []
-    colorIndicator: Optional[list[str]] = None
-    colors: list[str] = []
-    convertedManaCost: float
-    defense: Optional[str] = None
-    edhrecRank: Optional[float] = None
-    edhrecSaltiness: Optional[float] = None
-    faceConvertedManaCost: Optional[float] = None
-    faceManaValue: Optional[float] = None
-    faceName: Optional[str] = None
-    firstPrinting: Optional[str] = None
-    foreignData: Optional[list[ForeignData]] = None
-    hand: Optional[str] = None
-    hasAlternativeDeckLimit: bool
+    asciiName: str | None = None
+    attractionLights: list[float] | None = None
+    colorIdentity: list[str] = Field(default_factory=list)
+    colorIndicator: list[str] | None = None
+    colors: list[str] = Field(default_factory=list)
+    # Todo: Docs mismatch, seems optional
+    convertedManaCost: float | None = None
+    defense: str | None = None
+    edhrecRank: float | None = None
+    edhrecSaltiness: float | None = None
+    faceConvertedManaCost: float | None = None
+    faceManaValue: float | None = None
+    faceName: str | None = None
+    firstPrinting: str | None = None
+    foreignData: list[ForeignData] | None = None
+    hand: str | None = None
+    # Todo: Docs mismatch, seems optional
+    hasAlternativeDeckLimit: bool | None = None
     identifiers: Identifiers
-    isFunny: Optional[bool] = None
-    isReserved: Optional[bool] = None
-    keywords: Optional[list[str]] = None
+    isFunny: bool | None = None
+    isGameChanger: bool | None = None
+    isReserved: bool | None = None
+    keywords: list[str] | None = None
     layout: str
-    leadershipSkills: Optional[LeadershipSkills] = None
+    leadershipSkills: LeadershipSkills | None = None
     legalities: Legalities
-    life: Optional[str] = None
-    loyalty: Optional[str] = None
-    manaCost: Optional[str] = None
-    manaValue: float
+    life: str | None = None
+    loyalty: str | None = None
+    manaCost: str | None = None
+    # Todo: Docs mismatch, seems optional
+    manaValue: float | None = None
     name: str
-    power: Optional[str] = None
-    printings: Optional[list[str]] = None
+    power: str | None = None
+    printings: list[str] | None = None
     purchaseUrls: PurchaseUrls
-    relatedCards: RelatedCards
-    rulings: Optional[list[Rulings]] = None
-    side: Optional[str] = None
-    subsets: Optional[list[str]] = None
-    subtypes: list[str] = []
-    supertypes: list[str] = []
-    text: Optional[str] = None
-    toughness: Optional[str] = None
+    # Todo: Docs mismatch, seems optional
+    relatedCards: RelatedCards | None = None
+    rulings: list[Rulings] | None = None
+    side: str | None = None
+    subsets: list[str] | None = None
+    subtypes: list[str] = Field(default_factory=list)
+    supertypes: list[str] = Field(default_factory=list)
+    text: str | None = None
+    toughness: str | None = None
     type: str
-    types: list[str] = []
+    types: list[str] = Field(default_factory=list)
 
 
 class CardDeck(MTGJsonSchema):
     """Model describing the properties of a single card found in a Deck."""
-    artist: Optional[str] = None
-    artistIds: Optional[list[str]] = None
-    asciiName: Optional[str] = None
-    attractionLights: Optional[list[float]] = None
-    availability: list[str] = []
-    boosterTypes: Optional[list[str]] = None
+    artist: str | None = None
+    artistIds: list[str] | None = None
+    asciiName: str | None = None
+    attractionLights: list[float] | None = None
+    availability: list[str] = Field(default_factory=list)
+    boosterTypes: list[str] | None = None
     borderColor: str
-    cardParts: Optional[list[str]] = None
-    colorIdentity: list[str] = []
-    colorIndicator: Optional[list[str]] = None
-    colors: list[str] = []
+    cardParts: list[str] | None = None
+    colorIdentity: list[str] = Field(default_factory=list)
+    colorIndicator: list[str] | None = None
+    colors: list[str] = Field(default_factory=list)
     convertedManaCost: float
     count: float
-    defense: Optional[str] = None
-    duelDeck: Optional[str] = None
-    edhrecRank: Optional[float] = None
-    edhrecSaltiness: Optional[float] = None
-    faceConvertedManaCost: Optional[float] = None
-    faceFlavorName: Optional[str] = None
-    faceManaValue: Optional[float] = None
-    faceName: Optional[str] = None
-    finishes: list[str] = []
-    flavorName: Optional[str] = None
-    flavorText: Optional[str] = None
-    foreignData: Optional[list[ForeignData]] = None
-    frameEffects: Optional[list[str]] = None
+    defense: str | None = None
+    duelDeck: str | None = None
+    edhrecRank: float | None = None
+    edhrecSaltiness: float | None = None
+    faceConvertedManaCost: float | None = None
+    faceFlavorName: str | None = None
+    faceManaValue: float | None = None
+    faceName: str | None = None
+    facePrintedName: str | None = None
+    finishes: list[str] = Field(default_factory=list)
+    flavorName: str | None = None
+    flavorText: str | None = None
+    foreignData: list[ForeignData] | None = None
+    frameEffects: list[str] | None = None
     frameVersion: str
-    hand: Optional[str] = None
-    hasAlternativeDeckLimit: Optional[bool] = None
-    hasContentWarning: Optional[bool] = None
+    hand: str | None = None
+    hasAlternativeDeckLimit: bool | None = None
+    hasContentWarning: bool | None = None
     hasFoil: bool
     hasNonFoil: bool
     identifiers: Identifiers
-    isAlternative: Optional[bool] = None
+    isAlternative: bool | None = None
     isEtched: bool
     isFoil: bool
-    isFullArt: Optional[bool] = None
-    isFunny: Optional[bool] = None
-    isOnlineOnly: Optional[bool] = None
-    isOversized: Optional[bool] = None
-    isPromo: Optional[bool] = None
-    isRebalanced: Optional[bool] = None
-    isReprint: Optional[bool] = None
-    isReserved: Optional[bool] = None
-    isStarter: Optional[bool] = None
-    isStorySpotlight: Optional[bool] = None
-    isTextless: Optional[bool] = None
-    isTimeshifted: Optional[bool] = None
-    keywords: Optional[list[str]] = None
+    isFullArt: bool | None = None
+    isFunny: bool | None = None
+    isGameChanger: bool | None = None
+    isOnlineOnly: bool | None = None
+    isOversized: bool | None = None
+    isPromo: bool | None = None
+    isRebalanced: bool | None = None
+    isReprint: bool | None = None
+    isReserved: bool | None = None
+    isStarter: bool | None = None
+    isStorySpotlight: bool | None = None
+    isTextless: bool | None = None
+    isTimeshifted: bool | None = None
+    keywords: list[str] | None = None
     language: str
     layout: str
-    leadershipSkills: Optional[LeadershipSkills] = None
+    leadershipSkills: LeadershipSkills | None = None
     legalities: Legalities
-    life: Optional[str] = None
-    loyalty: Optional[str] = None
-    manaCost: Optional[str] = None
+    life: str | None = None
+    loyalty: str | None = None
+    manaCost: str | None = None
     manaValue: float
     name: str
     number: str
-    originalPrintings: Optional[list[str]] = None
-    originalReleaseDate: Optional[str] = None
-    originalText: Optional[str] = None
-    originalType: Optional[str] = None
-    otherFaceIds: Optional[list[str]] = None
-    power: Optional[str] = None
-    printings: Optional[list[str]] = None
-    promoTypes: Optional[list[str]] = None
+    originalPrintings: list[str] | None = None
+    originalReleaseDate: str | None = None
+    originalText: str | None = None
+    originalType: str | None = None
+    otherFaceIds: list[str] | None = None
+    power: str | None = None
+    printedName: str | None = None
+    printedText: str | None = None
+    printedType: str | None = None
+    printings: list[str] | None = None
+    promoTypes: list[str] | None = None
     purchaseUrls: PurchaseUrls
     rarity: str
-    relatedCards: Optional[RelatedCards] = None
-    rebalancedPrintings: Optional[list[str]] = None
-    rulings: Optional[list[Rulings]] = None
-    securityStamp: Optional[str] = None
+    relatedCards: RelatedCards | None = None
+    rebalancedPrintings: list[str] | None = None
+    rulings: list[Rulings] | None = None
+    securityStamp: str | None = None
     setCode: str
-    side: Optional[str] = None
-    signature: Optional[str] = None
-    sourceProducts: Optional[SourceProducts] = None
-    subsets: Optional[list[str]] = None
-    subtypes: list[str] = []
-    supertypes: list[str] = []
-    text: Optional[str] = None
-    toughness: Optional[str] = None
+    side: str | None = None
+    signature: str | None = None
+    sourceProducts: SourceProducts | None = None
+    subsets: list[str] | None = None
+    subtypes: list[str] = Field(default_factory=list)
+    supertypes: list[str] = Field(default_factory=list)
+    text: str | None = None
+    toughness: str | None = None
     type: str
-    types: list[str] = []
+    types: list[str] = Field(default_factory=list)
     uuid: str
-    variations: Optional[list[str]] = None
-    watermark: Optional[str] = None
+    variations: list[str] | None = None
+    watermark: str | None = None
 
 
 class CardSet(MTGJsonSchema):
     """Model describing the properties of a single card found in a Set."""
-    artist: Optional[str] = None
-    artistIds: Optional[list[str]] = None
-    asciiName: Optional[str] = None
-    attractionLights: Optional[list[float]] = None
-    availability: list[str] = []
-    boosterTypes: Optional[list[str]] = None
+    artist: str | None = None
+    artistIds: list[str] | None = None
+    asciiName: str | None = None
+    attractionLights: list[float] | None = None
+    availability: list[str] = Field(default_factory=list)
+    boosterTypes: list[str] | None = None
     borderColor: str
-    cardParts: Optional[list[str]] = None
-    colorIdentity: list[str] = []
-    colorIndicator: Optional[list[str]] = None
-    colors: list[str] = []
+    cardParts: list[str] | None = None
+    colorIdentity: list[str] = Field(default_factory=list)
+    colorIndicator: list[str] | None = None
+    colors: list[str] = Field(default_factory=list)
     convertedManaCost: float
-    defense: Optional[str] = None
-    duelDeck: Optional[str] = None
-    edhrecRank: Optional[float] = None
-    edhrecSaltiness: Optional[float] = None
-    faceConvertedManaCost: Optional[float] = None
-    faceFlavorName: Optional[str] = None
-    faceManaValue: Optional[float] = None
-    faceName: Optional[str] = None
-    finishes: list[str] = []
-    flavorName: Optional[str] = None
-    flavorText: Optional[str] = None
-    foreignData: Optional[list[ForeignData]] = None
-    frameEffects: Optional[list[str]] = None
+    defense: str | None = None
+    duelDeck: str | None = None
+    edhrecRank: float | None = None
+    edhrecSaltiness: float | None = None
+    faceConvertedManaCost: float | None = None
+    faceFlavorName: str | None = None
+    faceManaValue: float | None = None
+    faceName: str | None = None
+    facePrintedName: str | None = None
+    finishes: list[str] = Field(default_factory=list)
+    flavorName: str | None = None
+    flavorText: str | None = None
+    foreignData: list[ForeignData] | None = None
+    frameEffects: list[str] | None = None
     frameVersion: str
-    hand: Optional[str] = None
-    hasAlternativeDeckLimit: Optional[bool] = None
-    hasContentWarning: Optional[bool] = None
+    hand: str | None = None
+    hasAlternativeDeckLimit: bool | None = None
+    hasContentWarning: bool | None = None
     hasFoil: bool
     hasNonFoil: bool
     identifiers: Identifiers
-    isAlternative: Optional[bool] = None
-    isFullArt: Optional[bool] = None
-    isFunny: Optional[bool] = None
-    isOnlineOnly: Optional[bool] = None
-    isOversized: Optional[bool] = None
-    isPromo: Optional[bool] = None
-    isRebalanced: Optional[bool] = None
-    isReprint: Optional[bool] = None
-    isReserved: Optional[bool] = None
-    isStarter: Optional[bool] = None
-    isStorySpotlight: Optional[bool] = None
-    isTextless: Optional[bool] = None
-    isTimeshifted: Optional[bool] = None
-    keywords: Optional[list[str]] = None
+    isAlternative: bool | None = None
+    isFullArt: bool | None = None
+    isFunny: bool | None = None
+    isGameChanger: bool | None = None
+    isOnlineOnly: bool | None = None
+    isOversized: bool | None = None
+    isPromo: bool | None = None
+    isRebalanced: bool | None = None
+    isReprint: bool | None = None
+    isReserved: bool | None = None
+    isStarter: bool | None = None
+    isStorySpotlight: bool | None = None
+    isTextless: bool | None = None
+    isTimeshifted: bool | None = None
+    keywords: list[str] | None = None
     language: str
     layout: str
-    leadershipSkills: Optional[LeadershipSkills] = None
+    leadershipSkills: LeadershipSkills | None = None
     legalities: Legalities
-    life: Optional[str] = None
-    loyalty: Optional[str] = None
-    manaCost: Optional[str] = None
+    life: str | None = None
+    loyalty: str | None = None
+    manaCost: str | None = None
     manaValue: float
     name: str
     number: str
-    originalPrintings: Optional[list[str]] = None
-    originalReleaseDate: Optional[str] = None
-    originalText: Optional[str] = None
-    originalType: Optional[str] = None
-    otherFaceIds: Optional[list[str]] = None
-    power: Optional[str] = None
-    printedName: Optional[str] = None
-    printedText: Optional[str] = None
-    printedType: Optional[str] = None
-    printings: Optional[list[str]] = None
-    promoTypes: Optional[list[str]] = None
+    originalPrintings: list[str] | None = None
+    originalReleaseDate: str | None = None
+    originalText: str | None = None
+    originalType: str | None = None
+    otherFaceIds: list[str] | None = None
+    power: str | None = None
+    printedName: str | None = None
+    printedText: str | None = None
+    printedType: str | None = None
+    printings: list[str] | None = None
+    promoTypes: list[str] | None = None
     purchaseUrls: PurchaseUrls
     rarity: str
-    relatedCards: Optional[RelatedCards] = None
-    rebalancedPrintings: Optional[list[str]] = None
-    rulings: Optional[list[Rulings]] = None
-    securityStamp: Optional[str] = None
+    relatedCards: RelatedCards | None = None
+    rebalancedPrintings: list[str] | None = None
+    rulings: list[Rulings] | None = None
+    securityStamp: str | None = None
     setCode: str
-    side: Optional[str] = None
-    signature: Optional[str] = None
-    sourceProducts: Optional[SourceProducts] = None
-    subsets: Optional[list[str]] = None
-    subtypes: list[str] = []
-    supertypes: list[str] = []
-    text: Optional[str] = None
-    toughness: Optional[str] = None
+    side: str | None = None
+    signature: str | None = None
+    sourceProducts: SourceProducts | None = None
+    subsets: list[str] | None = None
+    subtypes: list[str] = Field(default_factory=list)
+    supertypes: list[str] = Field(default_factory=list)
+    text: str | None = None
+    toughness: str | None = None
     type: str
-    types: list[str] = []
+    types: list[str] = Field(default_factory=list)
     uuid: str
-    variations: Optional[list[str]] = None
-    watermark: Optional[str] = None
+    variations: list[str] | None = None
+    watermark: str | None = None
 
 
 class CardSetDeck(MTGJsonSchema):
     """Model describing the properties of a single card found in a Deck (Set)."""
     count: float
-    isFoil: Optional[bool] = None
+    isEtched: bool | None = None
+    isFoil: bool | None = None
     uuid: str
 
 
 class CardToken(MTGJsonSchema):
     """Model describing the properties of a single token card found in a Set."""
-    artist: Optional[str] = None
-    artistIds: Optional[list[str]] = None
-    asciiName: Optional[str] = None
-    availability: list[str] = []
-    boosterTypes: Optional[list[str]] = None
+    artist: str | None = None
+    artistIds: list[str] | None = None
+    asciiName: str | None = None
+    availability: list[str] = Field(default_factory=list)
+    boosterTypes: list[str] | None = None
     borderColor: str
-    cardParts: Optional[list[str]] = None
-    colorIdentity: list[str] = []
-    colorIndicator: Optional[list[str]] = None
-    colors: list[str] = []
-    faceName: Optional[str] = None
-    faceFlavorName: Optional[str] = None
-    finishes: list[str] = []
-    flavorText: Optional[str] = None
-    frameEffects: Optional[list[str]] = None
+    cardParts: list[str] | None = None
+    colorIdentity: list[str] = Field(default_factory=list)
+    colorIndicator: list[str] | None = None
+    colors: list[str] = Field(default_factory=list)
+    edhrecSaltiness: float | None = None
+    faceName: str | None = None
+    faceFlavorName: str | None = None
+    finishes: list[str] = Field(default_factory=list)
+    flavorName: str | None = None
+    flavorText: str | None = None
+    frameEffects: list[str] | None = None
     frameVersion: str
     hasFoil: bool
     hasNonFoil: bool
     identifiers: Identifiers
-    isFullArt: Optional[bool] = None
-    isFunny: Optional[bool] = None
-    isOnlineOnly: Optional[bool] = None
-    isPromo: Optional[bool] = None
-    isReprint: Optional[bool] = None
-    isTextless: Optional[bool] = None
-    keywords: Optional[list[str]] = None
+    isFullArt: bool | None = None
+    isFunny: bool | None = None
+    isOnlineOnly: bool | None = None
+    isOversized: bool | None = None
+    isPromo: bool | None = None
+    isReprint: bool | None = None
+    isTextless: bool | None = None
+    keywords: list[str] | None = None
     language: str
     layout: str
-    loyalty: Optional[str] = None
+    loyalty: str | None = None
+    manaCost: str | None = None
     name: str
     number: str
-    orientation: Optional[str] = None
-    originalText: Optional[str] = None
-    originalType: Optional[str] = None
-    otherFaceIds: Optional[list[str]] = None
-    power: Optional[str] = None
-    promoTypes: Optional[list[str]] = None
-    relatedCards: Optional[RelatedCards] = None
-    reverseRelated: Optional[list[str]] = None
-    securityStamp: Optional[str] = None
+    orientation: str | None = None
+    originalText: str | None = None
+    originalType: str | None = None
+    otherFaceIds: list[str] | None = None
+    power: str | None = None
+    printedType: str | None = None
+    promoTypes: list[str] | None = None
+    relatedCards: RelatedCards | None = None
+    reverseRelated: list[str] | None = None
+    securityStamp: str | None = None
     setCode: str
-    side: Optional[str] = None
-    signature: Optional[str] = None
-    sourceProducts: Optional[SourceProducts] = None
-    subsets: Optional[list[str]] = None
-    subtypes: list[str] = []
-    supertypes: list[str] = []
-    text: Optional[str] = None
-    toughness: Optional[str] = None
+    side: str | None = None
+    signature: str | None = None
+    sourceProducts: SourceProducts | None = None
+    subsets: list[str] | None = None
+    subtypes: list[str] = Field(default_factory=list)
+    supertypes: list[str] = Field(default_factory=list)
+    text: str | None = None
+    toughness: str | None = None
     type: str
-    types: list[str] = []
+    types: list[str] = Field(default_factory=list)
     uuid: str
-    watermark: Optional[str] = None
+    watermark: str | None = None
+
+
+class CardTokenDeck(CardToken):
+    """Model describing the properties of a single token card found in a Deck.
+
+    Todo:
+        Not included in MTGJSON API, tokens in `Deck` model appear to be synthesized from
+            `CardToken` and `CardDeck.`
+    """
+    count: int
+    isEtched: bool
+    isFoil: bool
 
 
 """
 * Types
 """
 
-Card = Union[CardAtomic, CardDeck, CardSet, CardSetDeck, CardToken]
-Card.__doc__ = ('A Card is a data structure with variations of Data Models that is found within files '
-                'that reference cards, and is not a Data Model itself.')
+Card = CardAtomic | CardDeck | CardSet | CardSetDeck | CardToken
+"""
+* A Card is a data structure with variations of Data Models that is found within files 
+    that reference cards, and is not a Data Model itself.
+"""

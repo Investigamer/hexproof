@@ -2,13 +2,11 @@
 * MTGJSON Schema: Booster
 * https://mtgjson.com/data-models/booster/
 """
-# Standard Library Imports
-from typing import Optional
-
+# Third Party Imports
 from pydantic import Field
 
 # Local Imports
-from hexproof.mtgjson.schema.__base__ import MTGJsonSchema
+from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
 
 """
 * Schemas
@@ -17,17 +15,17 @@ from hexproof.mtgjson.schema.__base__ import MTGJsonSchema
 
 class BoosterPack(MTGJsonSchema):
     """Model describing the properties of how a Set's booster data may be configured."""
-    contents: dict[str, Optional[int]]
+    contents: dict[str, int | None]
     weight: int
 
 
 class BoosterSheet(MTGJsonSchema):
     """Model describing the properties of how a sheet of printed cards can be configured."""
-    allowDuplicates: Optional[bool] = None
-    balanceColors: Optional[bool] = None
+    allowDuplicates: bool | None = None
+    balanceColors: bool | None = None
     cards: dict[str, int]
     foil: bool
-    fixed: Optional[bool] = None
+    fixed: bool | None = None
     totalWeight: int
 
 
@@ -36,8 +34,8 @@ class BoosterConfig(MTGJsonSchema):
     boosters: list[BoosterPack] = Field(default_factory=list)
     boostersTotalWeight: int
     # Todo: Not documented on MTGJSON docs
-    languages: Optional[list[str]] = None
-    name: Optional[str] = None
+    languages: list[str] | None = None
+    name: str | None = None
     sheets: dict[str, BoosterSheet] = Field(default_factory=dict)
     sourceSetCodes: list[str] = Field(default_factory=list)
 

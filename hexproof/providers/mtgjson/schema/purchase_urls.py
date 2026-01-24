@@ -2,18 +2,15 @@
 * MTGJSON Schema: Purchase Urls
 * https://mtgjson.com/data-models/purchase-urls/
 """
-# Standard Library Imports
-from typing import Optional
-
-# Third Party Imports
-from omnitils.schema import Schema
+# Local Imports
+from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
 
 
-class PurchaseUrls(Schema):
+class PurchaseUrls(MTGJsonSchema):
     """Model describing the properties of links to purchase a product from a marketplace."""
-    cardKingdom: Optional[str] = None
-    cardKingdomEtched: Optional[str] = None
-    cardKingdomFoil: Optional[str] = None
-    cardmarket: Optional[str] = None
-    tcgplayer: Optional[str] = None
-    tcgplayerEtched: Optional[str] = None
+    cardKingdom: str | None = None
+    cardKingdomEtched: str | None = None
+    cardKingdomFoil: str | None = None
+    cardmarket: str | None = None
+    tcgplayer: str | None = None
+    tcgplayerEtched: str | None = None

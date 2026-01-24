@@ -5,11 +5,11 @@
 # Standard Library Imports
 from typing import Union
 
-# Third Party Imports
-from omnitils.schema import Schema
+# Local Imports
+from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
 
 
-class DeckList(Schema):
+class DeckList(MTGJsonSchema):
     """Model describing the meta data properties of an individual Deck."""
     code: str
     fileName: str

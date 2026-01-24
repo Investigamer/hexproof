@@ -2,49 +2,47 @@
 * MTGJSON Schema: Set
 * https://mtgjson.com/data-models/set/
 """
-# Standard Library Imports
-from typing import Optional
-
+# Third Party Imports
 from pydantic import Field
 
 # Local Imports
-from hexproof.mtgjson.schema.__base__ import MTGJsonSchema
-from hexproof.mtgjson.schema.booster import Booster
-from hexproof.mtgjson.schema.card import CardSet, CardToken
-from hexproof.mtgjson.schema.deck_set import DeckSet
-from hexproof.mtgjson.schema.sealed_product import SealedProduct
-from hexproof.mtgjson.schema.translations import Translations
+from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
+from hexproof.providers.mtgjson.schema.booster import Booster
+from hexproof.providers.mtgjson.schema.card import CardSet, CardToken
+from hexproof.providers.mtgjson.schema.deck_set import DeckSet
+from hexproof.providers.mtgjson.schema.sealed_product import SealedProduct
+from hexproof.providers.mtgjson.schema.translations import Translations
 
 
 class Set(MTGJsonSchema):
     """Model describing the properties of an individual set."""
     baseSetSize: int
-    block: Optional[str] = None
-    booster: Optional[Booster] = None
+    block: str | None = None
+    booster: Booster | None = None
     cards: list[CardSet] = []
-    cardsphereSetId: Optional[int] = None
+    cardsphereSetId: int | None = None
     code: str
-    codeV3: Optional[str] = None
+    codeV3: str | None = None
     decks: list[DeckSet] = []
-    isForeignOnly: Optional[bool] = None
+    isForeignOnly: bool | None = None
     isFoilOnly: bool
-    isNonFoilOnly: Optional[bool] = None
+    isNonFoilOnly: bool | None = None
     isOnlineOnly: bool
-    isPaperOnly: Optional[bool] = None
-    isPartialPreview: Optional[bool] = None
+    isPaperOnly: bool | None = None
+    isPartialPreview: bool | None = None
     keyruneCode: str
-    languages: Optional[list[str]] = None
-    mcmId: Optional[int] = None
-    mcmIdExtras: Optional[int] = None
-    mcmName: Optional[str] = None
-    mtgoCode: Optional[str] = None
+    languages: list[str] | None = None
+    mcmId: int | None = None
+    mcmIdExtras: int | None = None
+    mcmName: str | None = None
+    mtgoCode: str | None = None
     name: str
-    parentCode: Optional[str] = None
+    parentCode: str | None = None
     releaseDate: str
     sealedProduct: list[SealedProduct] = []
-    tcgplayerGroupId: Optional[int] = None
+    tcgplayerGroupId: int | None = None
     tokens: list[CardToken] = Field(default_factory=list)
-    tokenSetCode: Optional[str] = None
+    tokenSetCode: str | None = None
     totalSetSize: int
     translations: Translations
     type: str

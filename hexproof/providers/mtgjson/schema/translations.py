@@ -2,29 +2,28 @@
 * MTGJSON Schema: Translations
 * https://mtgjson.com/data-models/translations/
 """
-# Standard Library Imports
-from typing import Optional
-
 # Third Party Imports
-from omnitils.schema import Schema
 from pydantic import Field
 
+# Local Imports
+from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
 
-class Translations(Schema):
+
+class Translations(MTGJsonSchema):
     """Model describing the properties of a Set or Set List's name translated in various alternate languages."""
-    Ancient_Greek: Optional[str] = Field(None, alias="Ancient Greek")
-    Arabic: Optional[str] = Field(None, alias="Arabic")
-    Chinese_Simplified: Optional[str] = Field(None, alias="Chinese Simplified")
-    Chinese_Traditional: Optional[str] = Field(None, alias="Chinese Traditional")
-    French: Optional[str] = Field(None, alias="French")
-    German: Optional[str] = Field(None, alias="German")
-    Hebrew: Optional[str] = Field(None, alias="Hebrew")
-    Italian: Optional[str] = Field(None, alias="Italian")
-    Japanese: Optional[str] = Field(None, alias="Japanese")
-    Korean: Optional[str] = Field(None, alias="Korean")
-    Latin: Optional[str] = Field(None, alias="Latin")
-    Phyrexian: Optional[str] = Field(None, alias="Phyrexian")
-    Portuguese_Brazil: Optional[str] = Field(None, alias="Portuguese (Brazil)")
-    Russian: Optional[str] = Field(None, alias="Russian")
-    Sanskrit: Optional[str] = Field(None, alias="Sanskrit")
-    Spanish: Optional[str] = Field(None, alias="Spanish")
+    Ancient_Greek: str | None = Field(None, alias="Ancient Greek")
+    Arabic: str | None = Field(None, alias="Arabic")
+    Chinese_Simplified: str | None = Field(None, alias="Chinese Simplified")
+    Chinese_Traditional: str | None = Field(None, alias="Chinese Traditional")
+    French: str | None = Field(None, alias="French")
+    German: str | None = Field(None, alias="German")
+    Hebrew: str | None = Field(None, alias="Hebrew")
+    Italian: str | None = Field(None, alias="Italian")
+    Japanese: str | None = Field(None, alias="Japanese")
+    Korean: str | None = Field(None, alias="Korean")
+    Latin: str | None = Field(None, alias="Latin")
+    Phyrexian: str | None = Field(None, alias="Phyrexian")
+    Portuguese_Brazil: str | None = Field(None, alias="Portuguese (Brazil)")
+    Russian: str | None = Field(None, alias="Russian")
+    Sanskrit: str | None = Field(None, alias="Sanskrit")
+    Spanish: str | None = Field(None, alias="Spanish")

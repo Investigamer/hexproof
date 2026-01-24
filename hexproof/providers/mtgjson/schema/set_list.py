@@ -2,42 +2,39 @@
 * MTGJSON Schema: Set List
 * https://mtgjson.com/data-models/set-list/
 """
-# Standard Library Imports
-from typing import Optional
-
-from hexproof.mtgjson.schema import DeckSet
 # Local Imports
-from hexproof.mtgjson.schema.__base__ import MTGJsonSchema
-from hexproof.mtgjson.schema.sealed_product import SealedProduct
-from hexproof.mtgjson.schema.translations import Translations
+from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
+from hexproof.providers.mtgjson.schema.deck_set import DeckSet
+from hexproof.providers.mtgjson.schema.sealed_product import SealedProduct
+from hexproof.providers.mtgjson.schema.translations import Translations
 
 
 class SetList(MTGJsonSchema):
     """Model describing the metadata properties of an individual Set."""
     baseSetSize: int
-    block: Optional[str] = None
-    cardsphereSetId: Optional[int] = None
+    block: str | None = None
+    cardsphereSetId: int | None = None
     code: str
-    codeV3: Optional[str] = None
-    decks: Optional[list[DeckSet]] = None
-    isForeignOnly: Optional[bool] = None
+    codeV3: str | None = None
+    decks: list[DeckSet] | None = None
+    isForeignOnly: bool | None = None
     isFoilOnly: bool = False
-    isNonFoilOnly: Optional[bool] = None
+    isNonFoilOnly: bool | None = None
     isOnlineOnly: bool = False
-    isPaperOnly: Optional[bool] = None
-    isPartialPreview: Optional[bool] = None
+    isPaperOnly: bool | None = None
+    isPartialPreview: bool | None = None
     keyruneCode: str
-    languages: Optional[list[str]] = None
-    mcmId: Optional[int] = None
-    mcmIdExtras: Optional[int] = None
-    mcmName: Optional[str] = None
-    mtgoCode: Optional[str] = None
+    languages: list[str] | None = None
+    mcmId: int | None = None
+    mcmIdExtras: int | None = None
+    mcmName: str | None = None
+    mtgoCode: str | None = None
     name: str
-    parentCode: Optional[str] = None
+    parentCode: str | None = None
     releaseDate: str
-    sealedProduct: Optional[list[SealedProduct]] = None
-    tcgplayerGroupId: Optional[int] = None
+    sealedProduct: list[SealedProduct] | None = None
+    tcgplayerGroupId: int | None = None
     totalSetSize: int
-    tokenSetCode: Optional[str] = None
+    tokenSetCode: str | None = None
     translations: Translations
     type: str

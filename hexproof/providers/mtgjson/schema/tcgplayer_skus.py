@@ -2,11 +2,11 @@
 * MTGJSON Schema: TCGPlayer SKUs
 * https://mtgjson.com/data-models/tcgplayer-skus/
 """
-# Third Party Imports
-from omnitils.schema import Schema
+# Local Imports
+from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
 
 
-class TcgplayerSkus(Schema):
+class TcgplayerSkus(MTGJsonSchema):
     """Model describing the properties of the TCGplayer SKUs for a product."""
     condition: str
     finishes: list[str] = []

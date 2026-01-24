@@ -2,30 +2,38 @@
 * MTGJSON Schema: Identifiers
 * https://mtgjson.com/data-models/identifiers/
 """
-# Standard Library Imports
-from typing import Optional
-
-# Third Party Imports
-from omnitils.schema import Schema
+# Local Imports
+from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
 
 
-class Identifiers(Schema):
+class Identifiers(MTGJsonSchema):
     """Model describing the properties of identifiers associated to a card."""
-    cardKingdomEtchedId: Optional[str] = None
-    cardKingdomFoilId: Optional[str] = None
-    cardKingdomId: Optional[str] = None
-    cardsphereId: Optional[str] = None
-    mcmId: Optional[str] = None
-    mcmMetaId: Optional[str] = None
-    mtgArenaId: Optional[str] = None
-    mtgjsonFoilVersionId: Optional[str] = None
-    mtgjsonNonFoilVersionId: Optional[str] = None
-    mtgjsonV4Id: Optional[str] = None
-    mtgoFoilId: Optional[str] = None
-    mtgoId: Optional[str] = None
-    multiverseId: Optional[str] = None
-    scryfallId: Optional[str] = None
-    scryfallOracleId: Optional[str] = None
-    scryfallIllustrationId: Optional[str] = None
-    tcgplayerProductId: Optional[str] = None
-    tcgplayerEtchedProductId: Optional[str] = None
+    abuId: str | None = None
+    cardKingdomEtchedId: str | None = None
+    cardKingdomFoilId: str | None = None
+    cardKingdomId: str | None = None
+    cardsphereId: str | None = None
+    cardsphereFoilId: str | None = None
+    cardtraderId: str | None = None
+    csiId: str | None = None
+    deckboxId: str | None = None
+    mcmId: str | None = None
+    mcmMetaId: str | None = None
+    miniaturemarketId: str | None = None
+    mtgArenaId: str | None = None
+    mtgjsonFoilVersionId: str | None = None
+    mtgjsonNonFoilVersionId: str | None = None
+    mtgjsonV4Id: str | None = None
+    mtgoFoilId: str | None = None
+    mtgoId: str | None = None
+    multiverseId: str | None = None
+    # Todo: Not documented
+    mvpId: str | None = None
+    scgId: str | None = None
+    scryfallId: str | None = None
+    scryfallCardBackId: str | None = None
+    scryfallOracleId: str | None = None
+    scryfallIllustrationId: str | None = None
+    tcgplayerProductId: str | None = None
+    tcgplayerEtchedProductId: str | None = None
+    tntId: str | None = None

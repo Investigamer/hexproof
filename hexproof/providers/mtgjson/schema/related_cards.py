@@ -2,14 +2,11 @@
 * MTGJSON Schema: Related Cards
 * https://mtgjson.com/data-models/related-cards/
 """
-# Standard Library Imports
-from typing import Optional
-
-# Third Party Imports
-from omnitils.schema import Schema
+# Local Imports
+from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
 
 
-class RelatedCards(Schema):
+class RelatedCards(MTGJsonSchema):
     """Model describing the properties of a card that has relations to other cards."""
-    reverseRelated: Optional[list[str]] = None
-    spellbook: Optional[list[str]] = None
+    reverseRelated: list[str] | None = None
+    spellbook: list[str] | None = None

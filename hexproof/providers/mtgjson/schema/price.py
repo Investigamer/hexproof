@@ -2,42 +2,42 @@
 * MTGJSON Schema: Price
 * https://mtgjson.com/data-models/price/
 """
-# Standard Library Imports
-from typing import Optional
-
-# Third Party Imports
-from omnitils.schema import Schema
+# Local Imports
+from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
 
 """
 * Schemas
 """
 
 
-class PricePoints(Schema):
+class PricePoints(MTGJsonSchema):
     """Model describing the properties of a card's price provider prices."""
-    foil: Optional[dict[str, float]] = None
-    normal: Optional[dict[str, float]] = None
+    etched: dict[str, float] | None = None
+    foil: dict[str, float] | None = None
+    normal: dict[str, float] | None = None
 
 
-class PriceList(Schema):
+class PriceList(MTGJsonSchema):
     """Model describing the properties of a card providers list of buying and selling ability."""
-    buylist: Optional[PricePoints] = None
+    buylist: PricePoints | None = None
     currency: str
-    retail: Optional[PricePoints] = None
+    retail: PricePoints | None = None
 
 
-class PriceListForProvider(Schema):
+class PriceListForProvider(MTGJsonSchema):
     """Utility schema for use with the PriceFormats model outlining the possible providers of a PriceList object."""
-    cardkingdom: Optional[PriceList] = None
-    cardmarket: Optional[PriceList] = None
-    cardsphere: Optional[PriceList] = None
-    tcgplayer: Optional[PriceList] = None
+    cardhoarder: PriceList | None = None
+    cardkingdom: PriceList | None = None
+    cardmarket: PriceList | None = None
+    cardsphere: PriceList | None = None
+    manapool: PriceList | None = None
+    tcgplayer: PriceList | None = None
 
 
-class PriceFormats(Schema):
+class PriceFormats(MTGJsonSchema):
     """Model describing the properties of all product formats that the price providers provide."""
-    mtgo: Optional[PriceListForProvider] = None
-    paper: Optional[PriceListForProvider] = None
+    mtgo: PriceListForProvider | None = None
+    paper: PriceListForProvider | None = None
 
 
 """
