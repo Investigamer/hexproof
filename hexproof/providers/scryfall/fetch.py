@@ -16,8 +16,8 @@ from backoff import on_exception, expo
 from requests import RequestException
 
 # Local Imports
-import hexproof.scryfall.constants.urls as ScryURL
-from hexproof.scryfall import schema as ScrySchema
+import hexproof.providers.scryfall.constants.urls as ScryURL
+from hexproof.providers.scryfall import schema as ScrySchema
 
 # Rate limiter to safely limit MTGJSON requests
 scryfall_rate_limit = RateLimitDecorator(calls=20, period=1)

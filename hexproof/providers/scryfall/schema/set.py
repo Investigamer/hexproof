@@ -5,19 +5,17 @@
 # Standard Library Imports
 from typing import Literal, Optional
 
-# Third Party Imports
-from omnitils.schema import Schema
-
 # Local Imports
-from hexproof.scryfall.enums import SetType
-from hexproof.scryfall.schema.list_object import ListObject
+from hexproof.providers.scryfall.enums import SetType
+from hexproof.providers.scryfall.schema._core import ScryfallSchema
+from hexproof.providers.scryfall.schema.list_object import ListObject
 
 """
 * Schemas
 """
 
 
-class Set(Schema):
+class Set(ScryfallSchema):
     """Scryfall 'Set' object representing a group of related Magic cards."""
     object: Literal['set'] = 'set'
     arena_code: Optional[str] = None

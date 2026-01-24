@@ -6,16 +6,13 @@
 import datetime
 from typing import Literal, Optional, Any
 
-# Third Party Imports
-from omnitils.schema import Schema
-
-
 # Local Imports
-from hexproof.scryfall.enums import MigrationStrategy
-from hexproof.scryfall.schema.list_object import ListObject
+from hexproof.providers.scryfall.enums import MigrationStrategy
+from hexproof.providers.scryfall.schema._core import ScryfallSchema
+from hexproof.providers.scryfall.schema.list_object import ListObject
 
 
-class CardMigration(Schema):
+class CardMigration(ScryfallSchema):
     """An object representing a card data migration on Scryfall."""
     object: Literal['migration'] = 'migration'
     uri: str

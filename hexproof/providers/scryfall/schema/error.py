@@ -5,11 +5,11 @@
 # Standard Library Imports
 from typing import Literal, Optional
 
-# Third Party Imports
-from omnitils.schema import Schema
+# Local Imports
+from hexproof.providers.scryfall.schema._core import ScryfallSchema
 
 
-class Error(Schema):
+class Error(ScryfallSchema):
     """An object representing an error returned from the Scryfall API."""
     object: Literal['error'] = 'error'
     status: int

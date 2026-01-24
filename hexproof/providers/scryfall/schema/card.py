@@ -6,11 +6,8 @@
 import datetime
 from typing import Literal, Optional
 
-# Third Party Imports
-from omnitils.schema import Schema
-
 # Local Imports
-from hexproof.scryfall.enums import (
+from hexproof.providers.scryfall.enums import (
     ManaColor,
     BorderColor,
     CardFinishes,
@@ -22,14 +19,15 @@ from hexproof.scryfall.enums import (
     CardLayout,
     CardFrameEffects,
     CardSecurityStamp)
-from hexproof.scryfall.schema.list_object import ListObject
+from hexproof.providers.scryfall.schema._core import ScryfallSchema
+from hexproof.providers.scryfall.schema.list_object import ListObject
 
 """
 * Schemas
 """
 
 
-class CardImageURIs(Schema):
+class CardImageURIs(ScryfallSchema):
     """An object representing the image resources available for a Card or CardFace object."""
     png: Optional[str] = None
     border_crop: Optional[str] = None
@@ -39,7 +37,7 @@ class CardImageURIs(Schema):
     small: Optional[str] = None
 
 
-class CardFace(Schema):
+class CardFace(ScryfallSchema):
     """An object representing one face of a Card object."""
     artist: Optional[str] = None
     artist_id: Optional[str] = None
@@ -66,7 +64,7 @@ class CardFace(Schema):
     watermark: Optional[str] = None
 
 
-class CardIdentifiers(Schema):
+class CardIdentifiers(ScryfallSchema):
     """An object with one or more identifier keys used for generating a card collection via the Scryfall API.
 
     Notes:
@@ -82,40 +80,39 @@ class CardIdentifiers(Schema):
     set: Optional[str] = None
 
 
-class CardLegalities(Schema):
+class CardLegalities(ScryfallSchema):
     """An object denoting a card's legal, banned, or restricted status for various formats."""
-    standard: Optional[CardLegality] = None
-    future: Optional[CardLegality] = None
-    historic: Optional[CardLegality] = None
-    timeless: Optional[CardLegality] = None
-    gladiator: Optional[CardLegality] = None
-    pioneer: Optional[CardLegality] = None
-    explorer: Optional[CardLegality] = None
-    modern: Optional[CardLegality] = None
-    legacy: Optional[CardLegality] = None
-    pauper: Optional[CardLegality] = None
-    vintage: Optional[CardLegality] = None
-    penny: Optional[CardLegality] = None
-    commander: Optional[CardLegality] = None
-    oathbreaker: Optional[CardLegality] = None
-    standardbrawl: Optional[CardLegality] = None
-    brawl: Optional[CardLegality] = None
-    alchemy: Optional[CardLegality] = None
-    paupercommander: Optional[CardLegality] = None
-    duel: Optional[CardLegality] = None
-    oldschool: Optional[CardLegality] = None
-    premodern: Optional[CardLegality] = None
-    predh: Optional[CardLegality] = None
+    standard: CardLegality
+    future: CardLegality
+    historic: CardLegality
+    timeless: CardLegality
+    gladiator: CardLegality
+    pioneer: CardLegality
+    modern: CardLegality
+    legacy: CardLegality
+    pauper: CardLegality
+    vintage: CardLegality
+    penny: CardLegality
+    commander: CardLegality
+    oathbreaker: CardLegality
+    standardbrawl: CardLegality
+    brawl: CardLegality
+    alchemy: CardLegality
+    paupercommander: CardLegality
+    duel: CardLegality
+    oldschool: CardLegality
+    premodern: CardLegality
+    predh: CardLegality
 
 
-class CardPreview(Schema):
+class CardPreview(ScryfallSchema):
     """An object containing card preview information."""
     previewed_at: Optional[str | datetime.date] = None
     source_uri: Optional[str] = None
     source: Optional[str] = None
 
 
-class CardPrices(Schema):
+class CardPrices(ScryfallSchema):
     """An object containing daily price information for a card."""
     usd: Optional[str] = None
     usd_foil: Optional[str] = None
@@ -126,7 +123,7 @@ class CardPrices(Schema):
     tix: Optional[str] = None
 
 
-class CardRelated(Schema):
+class CardRelated(ScryfallSchema):
     """Represents a symbolic card related to another card.
 
     Notes:
@@ -140,7 +137,7 @@ class CardRelated(Schema):
     uri: str
 
 
-class Card(Schema):
+class Card(ScryfallSchema):
     """Represents a card object on Scryfall.
 
     Notes:

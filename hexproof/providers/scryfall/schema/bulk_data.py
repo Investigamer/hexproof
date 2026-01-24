@@ -6,14 +6,12 @@
 import datetime
 from typing import Literal
 
-# Third Party Imports
-from omnitils.schema import Schema
-
 # Local Imports
-from hexproof.scryfall.schema.list_object import ListObject
+from hexproof.providers.scryfall.schema._core import ScryfallSchema
+from hexproof.providers.scryfall.schema.list_object import ListObject
 
 
-class BulkData(Schema):
+class BulkData(ScryfallSchema):
     """An object representing a bulk dataset provided by Scryfall as a JSON file."""
     object: Literal['bulk-data'] = 'bulk-data'
     id: str

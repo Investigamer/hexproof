@@ -5,11 +5,11 @@
 # Standard Library Imports
 from typing import Literal
 
-# Third Party Imports
-from omnitils.schema import Schema
+# Local Imports
+from hexproof.providers.scryfall.schema._core import ScryfallSchema
 
 
-class Catalog(Schema):
+class Catalog(ScryfallSchema):
     """An object containing an array of Magic datapoints provided by Scryfall."""
     object: Literal['catalog'] = 'catalog'
     uri: str

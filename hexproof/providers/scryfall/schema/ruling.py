@@ -6,14 +6,12 @@
 import datetime
 from typing import Literal
 
-# Third Party Imports
-from omnitils.schema import Schema
-
 # Local Imports
-from hexproof.scryfall.schema.list_object import ListObject
+from hexproof.providers.scryfall.schema._core import ScryfallSchema
+from hexproof.providers.scryfall.schema.list_object import ListObject
 
 
-class Ruling(Schema):
+class Ruling(ScryfallSchema):
     """Object representing rulings, release notes, or scryfall notes for a particular card."""
     object: Literal['ruling'] = 'ruling'
     oracle_id: str

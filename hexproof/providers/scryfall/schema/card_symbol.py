@@ -5,15 +5,13 @@
 # Standard Library Imports
 from typing import Literal, Optional
 
-# Third Party Imports
-from omnitils.schema import Schema
-
 # Local Imports
-from hexproof.scryfall import ManaColor
-from hexproof.scryfall.schema.list_object import ListObject
+from hexproof.providers.scryfall import ManaColor
+from hexproof.providers.scryfall.schema._core import ScryfallSchema
+from hexproof.providers.scryfall.schema.list_object import ListObject
 
 
-class CardSymbol(Schema):
+class CardSymbol(ScryfallSchema):
     """An object representing an illustrated symbol that may appear in a card's mana cost
         or oracle text.
     """
@@ -43,7 +41,7 @@ class CardSymbolList(ListObject):
     data: list[CardSymbol]
 
 
-class ManaCost(Schema):
+class ManaCost(ScryfallSchema):
     """An object representing a parsed mana cost string returned from
         Scryfall's `symbology/parse-mana` endpoint.
 

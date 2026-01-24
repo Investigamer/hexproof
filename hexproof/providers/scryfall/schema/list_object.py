@@ -5,15 +5,15 @@
 # Standard Library Imports
 from typing import Literal, Optional
 
-# Third Party Imports
-from omnitils.schema import Schema
+# Local Imports
+from hexproof.providers.scryfall.schema._core import ScryfallSchema
 
 
-class ListObject(Schema):
+class ListObject(ScryfallSchema):
     """An object representing a sequence of Scryfall objects which may be paginated or contain warnings
         raised when generating the list."""
     object: Literal['list'] = 'list'
-    data: list[dict | Schema]
+    data: list[dict | ScryfallSchema]
     has_more: bool
     next_page: Optional[str] = None
     warnings: Optional[list[str]] = None
