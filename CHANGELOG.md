@@ -1,3 +1,21 @@
+## 0.4.0 (2026-01-23)
+
+### Feat
+
+- **cli**: Modularized CLI tooling, new Pydantic validation approach for better readability pending full rewrite
+- **utils**: Introduced utils module for general utilities, added `validation` submodule
+
+### Fix
+
+- **scryfall**: Add some currently undocumented fields to Card schema
+- **mtgjson**: Provider `mtgjson` updated for new providers module, introduced MTGJsonSchema base class, aligned types with current MTGJSON data
+
+### Refactor
+
+- **scryfall**: Provider `scryfall` updated for new providers module, introduced ScryfallSchema base class, aligned types with current Scryfall data
+- **vectors**: Provider `vectors` updated for new providers module
+- **pyproject.toml**: Add py.typed, ensure changelog uses utf-8 encoding
+
 ## 0.3.7 (2024-10-10)
 
 ### Fix
