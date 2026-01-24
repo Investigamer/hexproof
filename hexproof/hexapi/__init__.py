@@ -1,3 +1,0 @@
-"""
-* Hexproof API Unified Data
-"""
