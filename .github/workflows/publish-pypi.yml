@@ -46,11 +46,14 @@ jobs:
           enable-cache: true
 
       # Sync dependencies (with dev)
+      # Todo: Currently uv lock is required to update lock file with version bump.
+      #   Ideally it would be locked before the workflow runs.
       - name: Sync dependencies (locked)
         shell: bash
         run: |
           set -euo pipefail
-          uv sync --locked --extra dev
+          uv sync --extra dev
+          uv lock
 
       # Generate a Release on GitHub, insert release notes from cz
       - name: Create GitHub Release (body from release_notes.md)
@@ -68,7 +71,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          uv sync --lock
+          uv sync --locked
           uv build
 
       # Publish to PyPi
