@@ -52,22 +52,7 @@ jobs:
           set -euo pipefail
           uv sync --locked --extra dev
 
-      # Generate version specific release notes
-      - name: Generate release notes (Commitizen)
-        shell: bash
-        run: |
-          set -euo pipefail
-          TAG="${GITHUB_REF_NAME}"
-
-          trap 'rm -f release_notes.md' EXIT
-
-          uv run cz changelog "$TAG" --dry-run > release_notes.md
-
-          echo "---- release_notes.md (first 40 lines) ----"
-          sed -n '1,40p' release_notes.md
-          echo "-------------------------------------------"
-
-      # Generate a Release on GitHub, using generated release notes
+      # Generate a Release on GitHub, insert release notes from cz
       - name: Create GitHub Release (body from release_notes.md)
         shell: bash
         env:
@@ -75,11 +60,8 @@ jobs:
         run: |
           set -euo pipefail
           TAG="${GITHUB_REF_NAME}"
-
-          gh release create "$TAG" \
-            --title "$TAG" \
-            --notes-file release_notes.md
-          rm -f release_notes.md
+          NOTES="$(uv run cz changelog "$TAG" --dry-run)"
+          gh release create "$TAG" --title "$TAG" --notes "$NOTES"
 
       # Sync without dev and build
       - name: Build (sdist + wheel)
