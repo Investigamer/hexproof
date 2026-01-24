@@ -244,6 +244,11 @@ class Card(ScryfallSchema):
     watermark: Optional[str] = None
     preview: Optional[CardPreview] = None
 
+    """Fields currently undocumented."""
+    foil: Optional[bool] = None
+    nonfoil: Optional[bool] = None
+    game_changer: Optional[bool] = None
+
 
 class CardList(ListObject):
     """Represents a sequence of Card objects.
