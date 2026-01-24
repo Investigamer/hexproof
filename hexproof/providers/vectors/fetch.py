@@ -16,8 +16,8 @@ from requests import RequestException
 import yarl
 
 # Local Imports
-from hexproof.vectors.constants import urls as VectorURL
-from hexproof.vectors import schema as VectorSchema
+from hexproof.providers.vectors.constants import urls as VectorURL
+from hexproof.providers.vectors import schema as VectorSchema
 
 """
 * Request Funcs
