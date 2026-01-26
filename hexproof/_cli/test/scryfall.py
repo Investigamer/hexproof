@@ -33,6 +33,7 @@ def test_scryfall_schema_card() -> None:
     _SCHEMA = Scryfall.Card
 
     try:
+        # Todo: We need a func for getting raw dict
         _OBJ = ScryfallFetch.get_card_named('Damnation', set_code='TSR')
         assert isinstance(_OBJ, _SCHEMA)
     except ValidationError as e:

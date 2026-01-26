@@ -8,4 +8,4 @@ from pydantic import ConfigDict
 
 class MTGJsonSchema(Schema):
     """Base Schema class for MTGJson data models."""
-    model_config = ConfigDict(extra='forbid')
+    model_config = ConfigDict(extra="allow")

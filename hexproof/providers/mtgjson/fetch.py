@@ -105,7 +105,7 @@ def get_cards_atomic_all() -> dict[str, MTGJsonTypes.CardAtomic]:
 
 
 @request_handler_mtgjson
-def yield_cards_atomic_raw() -> Iterator[tuple[str, MTGJsonTypes.CardAtomic]]:
+def yield_cards_atomic_raw() -> Iterator[tuple[str, dict]]:
     """Get a dictionary of all MTGJSON 'CardAtomic' objects mapped to their respective card names,
         in raw dictionary format.
 
@@ -131,13 +131,22 @@ def get_card_types() -> MTGJsonTypes.CardTypes:
     Returns:
         MTGJSON 'CardTypes' object.
     """
+    return MTGJsonTypes.CardTypes(**get_card_types_raw())
+
+
+@request_handler_mtgjson
+def get_card_types_raw() -> dict:
+    """Get the current MTGJSON 'CardTypes' resource as a raw dictionary.
+
+    Returns:
+        MTGJSON 'CardTypes' object as a raw dictionary.
+    """
     with requests.get(
         url=MTGJsonURL.API_CARD_TYPES,
         headers=request_header_default.copy()
     ) as r:
         r.raise_for_status()
-        _obj = r.json().get('data', {})
-        return MTGJsonTypes.CardTypes(**_obj)
+        return r.json().get('data', {})
 
 
 @request_handler_mtgjson
@@ -150,13 +159,25 @@ def get_deck(name: str) -> MTGJsonTypes.Deck:
     Returns:
         MTGJSON 'Deck' object.
     """
+    return MTGJsonTypes.Deck(**get_deck_raw(name))
+
+
+@request_handler_mtgjson
+def get_deck_raw(name: str) -> dict:
+    """Get a target MTGJSON 'Deck' resource as a raw dictionary.
+
+    Args:
+        name: Name of the deck on MTGJSON.
+
+    Returns:
+        MTGJSON 'Deck' object as a raw dictionary.
+    """
     with requests.get(
         url=(MTGJsonURL.API_DECKS / name).with_suffix('.json'),
         headers=request_header_default.copy()
     ) as r:
         r.raise_for_status()
-        _obj = r.json().get('data', {})
-        return MTGJsonTypes.Deck(**_obj)
+        return r.json().get('data', {})
 
 
 @request_handler_mtgjson
@@ -194,36 +215,52 @@ def yield_deck_list_raw() -> Iterator[dict]:
             yield n
 
 
-@request_handler_mtgjson
 def get_keywords() -> MTGJsonTypes.Keywords:
     """Get the current MTGJSON 'Keywords' resource.
 
     Returns:
         MTGJSON 'Keywords' object.
     """
+    return MTGJsonTypes.Keywords(**get_keywords_raw())
+
+
+@request_handler_mtgjson
+def get_keywords_raw() -> dict:
+    """Get the current MTGJSON 'Keywords' resource as a raw dictionary.
+
+    Returns:
+        MTGJSON 'Keywords' object as a raw dictionary.
+    """
     with requests.get(
         url=MTGJsonURL.API_KEYWORDS,
         headers=request_header_default.copy()
     ) as r:
         r.raise_for_status()
-        _obj = r.json().get('data', {})
-        return MTGJsonTypes.Keywords(**_obj)
+        return r.json().get('data', {})
 
 
-@request_handler_mtgjson
 def get_meta() -> MTGJsonTypes.Meta:
     """Get the current MTGJSON 'Meta' resource.
 
     Returns:
         MTGJSON 'Meta' object.
     """
+    return MTGJsonTypes.Meta(**get_meta_raw())
+
+
+@request_handler_mtgjson
+def get_meta_raw() -> dict:
+    """Get the current MTGJSON 'Meta' resource as a raw dictionary.
+
+    Returns:
+        MTGJSON 'Meta' object as a raw dictionary.
+    """
     with requests.get(
         url=MTGJsonURL.API_META,
         headers=request_header_default.copy()
     ) as r:
         r.raise_for_status()
-        _obj = r.json().get('data', {})
-        return MTGJsonTypes.Meta(**_obj)
+        return r.json().get('data', {})
 
 
 @request_handler_mtgjson
@@ -271,13 +308,25 @@ def get_set(card_set: str) -> MTGJsonTypes.Set:
     Returns:
         MTGJson 'Set' object.
     """
+    return MTGJsonTypes.Set(**get_set_raw(card_set))
+
+
+@request_handler_mtgjson
+def get_set_raw(card_set: str) -> dict:
+    """Get a target MTGJSON 'Set' resource as a raw dictionary.
+
+    Args:
+        card_set: The set to look for, e.g. MH2
+
+    Returns:
+        MTGJson 'Set' object as a raw dictionary.
+    """
     with requests.get(
         url=(MTGJsonURL.API_SETS / card_set.upper()).with_suffix('.json'),
         headers=request_header_default.copy()
     ) as r:
         r.raise_for_status()
-        _obj = r.json().get('data', {})
-        return MTGJsonTypes.Set(**_obj)
+        return r.json().get('data', {})
 
 
 @request_handler_mtgjson

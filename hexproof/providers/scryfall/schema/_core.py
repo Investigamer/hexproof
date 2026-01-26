@@ -8,4 +8,4 @@ from pydantic import ConfigDict
 
 class ScryfallSchema(Schema):
     """Base Schema class for Scryfall data models."""
-    model_config = ConfigDict(extra='forbid')
+    model_config = ConfigDict(extra='allow')

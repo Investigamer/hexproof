@@ -16,7 +16,7 @@ from typer import Typer
 # Local Imports
 from hexproof.providers.mtgjson import fetch as MTGJsonFetch
 from hexproof.providers.mtgjson import schema as MTGJson
-from hexproof.utils.validation import format_validation_error_report
+from hexproof.utils.validation import format_validation_error_report, validate_model_data
 
 # Core variables
 project_cwd = Path(__file__).parent.parent.parent.parent
@@ -40,7 +40,7 @@ def test_mtgjson_schema_card() -> None:
     for k, card_list in MTGJsonFetch.yield_cards_atomic_raw():
         for v in card_list:
             try:
-                _OBJ = _SCHEMA(**v)
+                _OBJ = validate_model_data(_SCHEMA, v)
                 assert isinstance(k, str) and isinstance(_OBJ, _SCHEMA)
                 del _OBJ
             except ValidationError as e:
@@ -64,7 +64,7 @@ def test_mtgjson_schema_card_types() -> None:
     _SCHEMA = MTGJson.CardTypes
 
     try:
-        _OBJ = MTGJsonFetch.get_card_types()
+        _OBJ = validate_model_data(_SCHEMA, MTGJsonFetch.get_card_types_raw())
         assert isinstance(_OBJ, _SCHEMA)
     except ValidationError as e:
         # Validation error
@@ -93,7 +93,7 @@ def test_mtgjson_schema_deck() -> None:
             if _FILE.is_file() and _FILE.suffix == '.json':
                 try:
                     with open(_FILE, 'r', encoding='utf-8') as f:
-                        _OBJ = _SCHEMA(**json.load(f).get('data', {}))
+                        _OBJ = validate_model_data(_SCHEMA, json.load(f).get('data', {}))
                     assert isinstance(_OBJ, _SCHEMA)
                     del _OBJ
                 except ValidationError as e:
@@ -119,7 +119,7 @@ def test_mtgjson_schema_deck_list() -> None:
 
     for n in MTGJsonFetch.yield_deck_list_raw():
         try:
-            _OBJ = _SCHEMA(**n)
+            _OBJ = validate_model_data(_SCHEMA, n)
             assert isinstance(_OBJ, _SCHEMA)
             del _OBJ
         except ValidationError as e:
@@ -143,7 +143,7 @@ def test_mtgjson_schema_keywords() -> None:
     _SCHEMA = MTGJson.Keywords
 
     try:
-        _OBJ = MTGJsonFetch.get_keywords()
+        _OBJ = validate_model_data(_SCHEMA, MTGJsonFetch.get_keywords_raw())
         assert isinstance(_OBJ, _SCHEMA)
     except ValidationError as e:
         # Validation error
@@ -162,7 +162,7 @@ def test_mtgjson_schema_meta() -> None:
     _SCHEMA = MTGJson.Meta
 
     try:
-        _OBJ = MTGJsonFetch.get_meta()
+        _OBJ = validate_model_data(_SCHEMA, MTGJsonFetch.get_meta_raw())
         assert isinstance(_OBJ, _SCHEMA)
     except ValidationError as e:
         # Validation error
@@ -183,7 +183,7 @@ def test_mtgjson_schema_price() -> None:
 
     for k, v in MTGJsonFetch.yield_prices_today_raw():
         try:
-            _OBJ = _SCHEMA(**v)
+            _OBJ = validate_model_data(_SCHEMA, v)
             assert isinstance(k, str) and isinstance(_OBJ, _SCHEMA)
             del _OBJ
         except ValidationError as e:
@@ -214,7 +214,7 @@ def test_mtgjson_schema_set() -> None:
                 continue
             try:
                 with open(_FILE, 'r', encoding='utf-8') as f:
-                    _OBJ = _SCHEMA(**json.load(f).get('data', {}))
+                    _OBJ = validate_model_data(_SCHEMA, json.load(f).get('data', {}))
                 assert isinstance(_OBJ, _SCHEMA)
                 del _OBJ
             except ValidationError as e:
@@ -240,7 +240,7 @@ def test_mtgjson_schema_set_list() -> None:
 
     for n in MTGJsonFetch.yield_set_list_raw():
         try:
-            _OBJ = _SCHEMA(**n)
+            _OBJ = validate_model_data(_SCHEMA, n)
             assert isinstance(_OBJ, _SCHEMA)
             del _OBJ
         except ValidationError as e:
