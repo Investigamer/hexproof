@@ -58,6 +58,7 @@ Sponsor = "https://patreon.com/mpcfill"
 
 [project.scripts]
 hexproof = 'hexproof._cli:HexproofCLI'
+hooks-cz = 'hooks.commitizen:hooks'
 
 [build-system]
 requires = ["hatchling"]
@@ -75,5 +76,5 @@ version_files = [
     "pyproject.toml:version"
 ]
 pre_bump_hooks = [
-    "uv run hooks/commitizen.py pre-bump"
+    "uv run hooks-cz pre-bump"
 ]

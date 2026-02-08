@@ -37,7 +37,7 @@ def version_context() -> tuple[str | None, str | None]:
 def pre_bump(stage_lockfile: bool = typer.Option(True, "--stage/--no-stage")) -> None:
     """Run before Commitizen creates the bump commit/tag."""
     cur_ver, new_ver = version_context()
-    typer.echo(f"[pre-bump] pre-bump ({cur_ver} → {new_ver})")
+    typer.echo(f"[pre-bump] pre-bump ({cur_ver} -> {new_ver})")
 
     # Generate new lock file
     typer.echo("[pre-bump] running: uv lock")
