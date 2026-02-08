@@ -1,3 +1,14 @@
+## 0.4.1 (2026-02-07)
+
+### Fix
+
+- **hooks**: Prevent character issue on some terminals, add script entrypoint
+- **mtgjson/schema**: Align schema with MTGJSON v5.3.0, address some optional value fallbacks
+
+### Refactor
+
+- **validation**: Improve validation tests for strict schema checking, prevent hard fail in production
+
 ## 0.4.0 (2026-01-23)
 
 ### Feat
