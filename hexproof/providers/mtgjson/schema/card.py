@@ -58,6 +58,8 @@ class CardAtomic(MTGJsonSchema):
     name: str
     power: str | None = None
     printings: list[str] | None = None
+    # Todo: Not documented, optional?
+    producedMana: list[str] | None = None
     purchaseUrls: PurchaseUrls
     # Todo: Docs mismatch, seems optional
     relatedCards: RelatedCards | None = None
@@ -109,8 +111,10 @@ class CardDeck(MTGJsonSchema):
     hasNonFoil: bool
     identifiers: Identifiers
     isAlternative: bool | None = None
-    isEtched: bool
-    isFoil: bool
+    # Todo: Undocumented, optional?
+    isEtched: bool | None = None
+    # Todo: Documented as required, using optional FOR NOW
+    isFoil: bool | None = None
     isFullArt: bool | None = None
     isFunny: bool | None = None
     isGameChanger: bool | None = None
@@ -264,6 +268,7 @@ class CardSet(MTGJsonSchema):
 class CardSetDeck(MTGJsonSchema):
     """Model describing the properties of a single card found in a Deck (Set)."""
     count: float
+    # Todo: Not documented, optional?
     isEtched: bool | None = None
     isFoil: bool | None = None
     uuid: str
@@ -339,8 +344,9 @@ class CardTokenDeck(CardToken):
             `CardToken` and `CardDeck.`
     """
     count: int
-    isEtched: bool
-    isFoil: bool
+    # Todo: Docs mismatch, seems optional
+    isEtched: bool | None = None
+    isFoil: bool | None = None
 
 
 """
