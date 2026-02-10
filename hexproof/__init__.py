@@ -2,7 +2,6 @@
 * Hexproof Package
 * A collection of utilities for dealing with MTG data sources.
 """
-# Local Imports
 import hexproof.providers.hexapi as Hexproof
 import hexproof.providers.mtgjson as MTGJson
 import hexproof.providers.mtgpics as MTGPics

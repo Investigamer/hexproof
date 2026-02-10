@@ -2,10 +2,8 @@
 * Scryfall Schema Definitions
 * https://scryfall.com/docs/api
 """
-# Standard Library Imports
 from typing import Union
 
-# Local Imports
 from .bulk_data import BulkData, BulkDataList
 from .card import (
     Card,

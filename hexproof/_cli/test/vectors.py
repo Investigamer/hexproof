@@ -1,16 +1,13 @@
 """
 * CLI Commands: Test - MTG-Vectors
 """
-# Standard Library Imports
 from pathlib import Path
 
-# Third Party Imports
 from pydantic import ValidationError
 from pydantic_core import ErrorDetails
 from rich.console import Console
 from typer import Typer
 
-# Local Imports
 from hexproof.providers.vectors import fetch as VectorsFetch
 from hexproof.providers.vectors import schema as Vectors
 from hexproof.utils.validation import format_validation_error_report

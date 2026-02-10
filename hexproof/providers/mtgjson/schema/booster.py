@@ -2,10 +2,8 @@
 * MTGJSON Schema: Booster
 * https://mtgjson.com/data-models/booster/
 """
-# Third Party Imports
 from pydantic import Field
 
-# Local Imports
 from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
 
 """

@@ -2,11 +2,9 @@
 * Scryfall Schema: Bulk Data
 * https://scryfall.com/docs/api/bulk-data
 """
-# Standard Library Imports
 import datetime
 from typing import Literal
 
-# Local Imports
 from hexproof.providers.scryfall.schema._core import ScryfallSchema
 from hexproof.providers.scryfall.schema.list_object import ListObject
 

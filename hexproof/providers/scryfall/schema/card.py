@@ -2,11 +2,9 @@
 * Scryfall Schema: Card
 * https://scryfall.com/docs/api/cards
 """
-# Standard Library Imports
 import datetime
 from typing import Literal, Optional
 
-# Local Imports
 from hexproof.providers.scryfall.enums import (
     ManaColor,
     BorderColor,

@@ -2,7 +2,6 @@
 * MTGJSON Schema: Leadership Skills
 * https://mtgjson.com/data-models/leadership-skills/
 """
-# Local Imports
 from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
 
 

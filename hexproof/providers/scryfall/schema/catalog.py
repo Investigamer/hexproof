@@ -2,10 +2,8 @@
 * Scryfall Schema: Catalog
 * https://scryfall.com/docs/api/catalogs
 """
-# Standard Library Imports
 from typing import Literal
 
-# Local Imports
 from hexproof.providers.scryfall.schema._core import ScryfallSchema
 
 

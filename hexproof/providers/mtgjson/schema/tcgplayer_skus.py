@@ -2,7 +2,6 @@
 * MTGJSON Schema: TCGPlayer SKUs
 * https://mtgjson.com/data-models/tcgplayer-skus/
 """
-# Local Imports
 from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
 
 

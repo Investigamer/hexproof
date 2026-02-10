@@ -2,12 +2,10 @@
 * MTG Vectors Request Handling
 """
 import os
-# Standard Library Imports
 from datetime import datetime
 from pathlib import Path
 from typing import Optional, Union
 
-# Third Party Imports
 from loguru import logger
 from omnitils.api.github import gh_get_data_json, gh_download_file
 from omnitils.files import mkdir_full_perms
@@ -15,7 +13,6 @@ from omnitils.files.archive import unpack_zip
 from requests import RequestException
 import yarl
 
-# Local Imports
 from hexproof.providers.vectors.constants import urls as VectorURL
 from hexproof.providers.vectors import schema as VectorSchema
 

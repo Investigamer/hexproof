@@ -2,11 +2,9 @@
 * Scryfall Schema: Migration
 * https://scryfall.com/docs/api/migrations
 """
-# Standard Library Imports
 import datetime
 from typing import Literal, Optional, Any
 
-# Local Imports
 from hexproof.providers.scryfall.enums import MigrationStrategy
 from hexproof.providers.scryfall.schema._core import ScryfallSchema
 from hexproof.providers.scryfall.schema.list_object import ListObject

@@ -2,10 +2,8 @@
 * Scryfall Schema: Card Symbol
 * https://scryfall.com/docs/api/card-symbols
 """
-# Standard Library Imports
 from typing import Literal, Optional
 
-# Local Imports
 from hexproof.providers.scryfall import ManaColor
 from hexproof.providers.scryfall.schema._core import ScryfallSchema
 from hexproof.providers.scryfall.schema.list_object import ListObject

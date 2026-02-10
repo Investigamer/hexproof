@@ -2,10 +2,8 @@
 * Scryfall Schema: Set
 * https://scryfall.com/docs/api/sets
 """
-# Standard Library Imports
 from typing import Literal, Optional
 
-# Local Imports
 from hexproof.providers.scryfall.enums import SetType
 from hexproof.providers.scryfall.schema._core import ScryfallSchema
 from hexproof.providers.scryfall.schema.list_object import ListObject

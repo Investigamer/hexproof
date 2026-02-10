@@ -2,7 +2,6 @@
 * MTGJSON Schema: Source Products
 * https://mtgjson.com/data-models/source-products/
 """
-# Local Imports
 from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
 from pydantic import Field
 

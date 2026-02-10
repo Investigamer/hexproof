@@ -2,7 +2,6 @@
 * MTGJSON Schema: Set List
 * https://mtgjson.com/data-models/set-list/
 """
-# Local Imports
 from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
 from hexproof.providers.mtgjson.schema.deck_set import DeckSet
 from hexproof.providers.mtgjson.schema.sealed_product import SealedProduct

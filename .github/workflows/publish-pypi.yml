@@ -39,16 +39,14 @@ jobs:
           fi
 
       # Set-up Python 3.12 (uv)
-      - name: Set up uv (Python 3.12 + cache)
+      - name: Setup uv (Python 3.12 + cache)
         uses: astral-sh/setup-uv@v7
         with:
           python-version: "3.12"
           enable-cache: true
 
       # Sync dependencies (with dev)
-      # Todo: Currently uv lock is required to update lock file with version bump.
-      #   Ideally it would be locked before the workflow runs.
-      - name: Sync dependencies (locked)
+      - name: Sync Dependencies
         shell: bash
         run: |
           set -euo pipefail
@@ -67,7 +65,7 @@ jobs:
           gh release create "$TAG" --title "$TAG" --notes "$NOTES"
 
       # Sync without dev and build
-      - name: Build (sdist + wheel)
+      - name: Build Release
         shell: bash
         run: |
           set -euo pipefail
@@ -75,7 +73,7 @@ jobs:
           uv build
 
       # Publish to PyPi
-      - name: Publish to PyPI (Trusted Publishing / OIDC)
+      - name: Publish to PyPI (Trusted Publishing)
         shell: bash
         run: |
           set -euo pipefail

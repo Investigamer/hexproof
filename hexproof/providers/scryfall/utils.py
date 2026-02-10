@@ -1,7 +1,6 @@
 """
 * Utilities for Parsing Scryfall Data
 """
-# Third Party Imports
 import yarl
 
 """

@@ -1,7 +1,6 @@
 """
 * Constants: URLs
 """
-# Third party imports
 from yarl import URL
 
 # Main URLs

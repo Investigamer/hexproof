@@ -1,7 +1,6 @@
 """
 * Scryfall - Schemas: Base Schemas
 """
-# Third Party Imports
 from omnitils.schema import Schema
 from pydantic import ConfigDict
 

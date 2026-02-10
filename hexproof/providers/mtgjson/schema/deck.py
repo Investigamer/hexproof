@@ -2,10 +2,8 @@
 * MTGJSON Schema: Deck
 * https://mtgjson.com/data-models/deck/
 """
-# Third Party Imports
 from pydantic import Field
 
-# Local Imports
 from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
 from hexproof.providers.mtgjson.schema.card import CardDeck, CardTokenDeck
 

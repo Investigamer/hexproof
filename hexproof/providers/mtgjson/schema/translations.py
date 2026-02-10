@@ -2,10 +2,8 @@
 * MTGJSON Schema: Translations
 * https://mtgjson.com/data-models/translations/
 """
-# Third Party Imports
 from pydantic import Field
 
-# Local Imports
 from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
 
 

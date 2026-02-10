@@ -2,10 +2,8 @@
 * Scryfall Schema: List
 * https://scryfall.com/docs/api/errors
 """
-# Standard Library Imports
 from typing import Literal, Optional
 
-# Local Imports
 from hexproof.providers.scryfall.schema._core import ScryfallSchema
 
 

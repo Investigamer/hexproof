@@ -2,7 +2,6 @@
 * MTGJSON Schema: Price
 * https://mtgjson.com/data-models/price/
 """
-# Local Imports
 from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
 
 """

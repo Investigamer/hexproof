@@ -2,10 +2,8 @@
 * MTGJSON Schema: Set
 * https://mtgjson.com/data-models/set/
 """
-# Third Party Imports
 from pydantic import Field
 
-# Local Imports
 from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
 from hexproof.providers.mtgjson.schema.booster import Booster
 from hexproof.providers.mtgjson.schema.card import CardSet, CardToken

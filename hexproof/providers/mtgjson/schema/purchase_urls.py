@@ -2,7 +2,6 @@
 * MTGJSON Schema: Purchase Urls
 * https://mtgjson.com/data-models/purchase-urls/
 """
-# Local Imports
 from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
 
 

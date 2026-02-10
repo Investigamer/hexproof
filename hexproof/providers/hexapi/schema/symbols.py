@@ -1,7 +1,6 @@
 """
 * Symbol Model Schemas
 """
-# Third Party Imports
 from omnitils.schema import Schema
 
 """

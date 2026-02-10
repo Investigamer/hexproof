@@ -1,7 +1,6 @@
 """
 * Permission Schemas
 """
-# Third Party Imports
 from omnitils.schema import Schema
 
 """

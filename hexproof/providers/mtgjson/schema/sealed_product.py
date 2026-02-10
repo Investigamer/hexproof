@@ -2,10 +2,8 @@
 * MTGJSON Schema: Sealed Product
 * https://mtgjson.com/data-models/sealed-product/
 """
-# Third Party Imports
 from pydantic import Field
 
-# Local Imports
 from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
 from hexproof.providers.mtgjson.schema.identifiers import Identifiers
 from hexproof.providers.mtgjson.schema.purchase_urls import PurchaseUrls

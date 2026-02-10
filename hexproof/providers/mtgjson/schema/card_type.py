@@ -2,7 +2,6 @@
 * MTGJSON Schema: Card Type
 * https://mtgjson.com/data-models/card-type/
 """
-# Local Imports
 from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
 
 

@@ -1,11 +1,9 @@
 """
 * Scryfall Request Handling
 """
-# Third Party Imports
 from pathlib import Path
 from typing import Callable, Optional
 
-# Third Party Imports
 import requests
 import yarl
 from omnitils.fetch import request_header_default, download_file
@@ -15,7 +13,6 @@ from ratelimit.decorators import RateLimitDecorator
 from backoff import on_exception, expo
 from requests import RequestException
 
-# Local Imports
 import hexproof.providers.scryfall.constants.urls as ScryURL
 from hexproof.providers.scryfall import schema as ScrySchema
 

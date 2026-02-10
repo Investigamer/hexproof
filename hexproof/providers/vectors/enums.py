@@ -1,7 +1,6 @@
 """
 * MTG Vectors Enums
 """
-# Third Party Imports
 from omnitils.enums import StrConstant
 
 """

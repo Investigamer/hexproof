@@ -1,7 +1,6 @@
 """
 * Scryfall Enums
 """
-# Standard Library Imports
 from omnitils.enums import StrConstant
 
 """

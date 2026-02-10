@@ -1,12 +1,10 @@
 """
 * MTGJSON Request Handling
 """
-# Standard Library Imports
 from collections.abc import Callable, Iterator
 import os
 from pathlib import Path
 
-# Third Party Imports
 from backoff import on_exception, expo
 import ijson
 from omnitils.fetch import request_header_default, download_file
@@ -16,7 +14,6 @@ from ratelimit.decorators import RateLimitDecorator
 import requests
 import yarl
 
-# Local Imports
 from hexproof.providers.mtgjson import schema as MTGJsonTypes
 from hexproof.providers.mtgjson.constants import urls as MTGJsonURL
 

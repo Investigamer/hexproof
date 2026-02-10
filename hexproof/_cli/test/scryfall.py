@@ -1,16 +1,13 @@
 """
 * CLI Commands: Test - Scryfall
 """
-# Standard Library Imports
 from pathlib import Path
 
-# Third Party Imports
 from pydantic import ValidationError
 from pydantic_core import ErrorDetails
 from rich.console import Console
 from typer import Typer
 
-# Local Imports
 from hexproof.providers.scryfall import fetch as ScryfallFetch
 from hexproof.providers.scryfall import schema as Scryfall
 from hexproof.utils.validation import format_validation_error_report

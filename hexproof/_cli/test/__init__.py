@@ -1,10 +1,8 @@
 """
 * CLI: Testing
 """
-# Third Party Imports
 from typer import Typer
 
-# Local Imports
 from hexproof._cli.test.mtgjson import MTGJsonTestCLI
 from hexproof._cli.test.scryfall import ScryfallTestCLI
 from hexproof._cli.test.vectors import VectorsTestCLI

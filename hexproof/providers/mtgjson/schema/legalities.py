@@ -2,7 +2,6 @@
 * MTGJSON Schema: Legalities
 * https://mtgjson.com/data-models/legalities/
 """
-# Local Imports
 from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
 
 

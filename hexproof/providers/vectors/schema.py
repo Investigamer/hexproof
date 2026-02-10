@@ -1,7 +1,6 @@
 """
 * MTG Vectors Schemas
 """
-# Third Party Imports
 from omnitils.schema import Schema
 
 """

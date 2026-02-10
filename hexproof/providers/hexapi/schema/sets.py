@@ -1,10 +1,8 @@
 """
 * Set Model Schemas
 """
-# Standard Library Imports
 from typing import Optional
 
-# Third Party Imports
 from omnitils.schema import Schema
 
 """

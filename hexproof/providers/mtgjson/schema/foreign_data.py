@@ -2,7 +2,6 @@
 * MTGJSON Schema: Foreign Data
 * https://mtgjson.com/data-models/foreign-data/
 """
-# Local Imports
 from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
 from hexproof.providers.mtgjson.schema.identifiers import Identifiers
 from pydantic import Field

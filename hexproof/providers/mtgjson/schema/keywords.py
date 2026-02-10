@@ -2,7 +2,6 @@
 * MTGJSON Schema: Keywords
 * https://mtgjson.com/data-models/keywords/
 """
-# Local Imports
 from hexproof.providers.mtgjson.schema._core import MTGJsonSchema
 
 
