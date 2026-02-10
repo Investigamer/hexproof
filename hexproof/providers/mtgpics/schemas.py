@@ -1,10 +1,8 @@
 """
 * MTGPics Schemas
 """
-# Standard Library Imports
 import datetime
 
-# Third Party Imports
 from omnitils.schema import ArbitrarySchema
 import yarl
 

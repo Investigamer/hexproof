@@ -2,7 +2,6 @@
 * Chronological Sets Targeted Scraping
 * Scrapes from: https://www.mtgpics.com/sets_chrono?page_nb={num}
 """
-# Third Party Imports
 from bs4 import BeautifulSoup, ResultSet
 from loguru import logger
 

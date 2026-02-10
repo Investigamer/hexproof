@@ -2,19 +2,16 @@
 * Checklist Targeted Scraping
 * Scrapes from: https://www.mtgpics.com/set_checklist?set={num}
 """
-# Standard Libray Imports
 from datetime import datetime
 from typing import Iterator
 
-# Third Party Imports
 from bs4 import BeautifulSoup, Tag
 from omnitils.exceptions import return_on_exception
 from omnitils.strings import normalize_datestr
 import yarl
 
-# Local Imports
-from hexproof.mtgpics.constants import urls as MTGPicsURL
-from hexproof.mtgpics import schemas as MTGPics
+from hexproof.providers.mtgpics.constants import urls as MTGPicsURL
+from hexproof.providers.mtgpics import schemas as MTGPics
 
 
 @return_on_exception([])

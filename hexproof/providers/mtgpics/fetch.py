@@ -1,10 +1,8 @@
 """
 * MTGPics Data Requests
 """
-# Standard Libray Imports
 from typing import Callable, Optional
 
-# Third Party Imports
 import requests
 import yarl
 from backoff import expo, on_exception

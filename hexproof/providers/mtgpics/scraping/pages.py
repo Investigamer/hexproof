@@ -1,7 +1,6 @@
 """
 * MTGPics Page Scraping
 """
-# Standard Library Imports
 from concurrent.futures import Future, ThreadPoolExecutor
 import os
 from datetime import datetime
@@ -10,25 +9,23 @@ from pathlib import Path
 from typing import Any, Optional, Iterator
 from urllib.parse import unquote
 
-# Third Party Imports
 import yarl
 from bs4 import BeautifulSoup, ResultSet
 from loguru import logger
 from omnitils.files import dump_data_file, load_data_file
 from omnitils.strings import normalize_str
 
-# Local Imports
-from hexproof.mtgpics.constants import urls as MTGPicsURL
-from hexproof.mtgpics.fetch import get_page_html
-from hexproof.mtgpics.scraping.checklist import (
+from hexproof.providers.mtgpics.constants import urls as MTGPicsURL
+from hexproof.providers.mtgpics.fetch import get_page_html
+from hexproof.providers.mtgpics.scraping.checklist import (
     scrape_set_code,
     scrape_card_count,
     scrape_date,
     scrape_name,
     get_cards_list,
     yield_cards_list, scrape_url_logo)
-from hexproof.mtgpics.scraping.sets_chrono import get_set_chrono_ids
-from hexproof.mtgpics import schemas as MTGPics
+from hexproof.providers.mtgpics.scraping.sets_chrono import get_set_chrono_ids
+from hexproof.providers.mtgpics import schemas as MTGPics
 
 """
 * Root Scraping Classes
